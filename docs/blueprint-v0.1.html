@@ -1,0 +1,772 @@
+<title>Zoo Quest Blueprint</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F0F2EB; --surface:#FFFFFF; --surface-2:#E4E9DF; --line:#CDD5C8;
+  --ink:#14261F; --ink-2:#3E4F47; --muted:#66756B;
+  --moss:#2F6B4F; --moss-soft:#DCEBE1; --amber:#D9822B; --amber-soft:#F7E3CC;
+  --code-bg:#1A2B25; --code-ink:#E6EFE9;
+  --mvp:#2F6B4F; --mvp-bg:#DCEBE1; --next:#B06A14; --next-bg:#F7E3CC; --later:#5C6B7A; --later-bg:#E1E6EC;
+  --shadow:0 1px 2px rgba(20,38,31,.06),0 8px 24px -12px rgba(20,38,31,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101B17; --surface:#172520; --surface-2:#1F3029; --line:#2C3F37;
+    --ink:#E9EFEA; --ink-2:#C2CEC6; --muted:#8FA096;
+    --moss:#6FB48F; --moss-soft:#1E3A2E; --amber:#EBA45A; --amber-soft:#3E2C18;
+    --code-bg:#0B1411; --code-ink:#D8E3DC;
+    --mvp:#7CC29D; --mvp-bg:#1E3A2E; --next:#EBA45A; --next-bg:#3E2C18; --later:#A6B4C2; --later-bg:#26313B;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101B17; --surface:#172520; --surface-2:#1F3029; --line:#2C3F37;
+  --ink:#E9EFEA; --ink-2:#C2CEC6; --muted:#8FA096;
+  --moss:#6FB48F; --moss-soft:#1E3A2E; --amber:#EBA45A; --amber-soft:#3E2C18;
+  --code-bg:#0B1411; --code-ink:#D8E3DC;
+  --mvp:#7CC29D; --mvp-bg:#1E3A2E; --next:#EBA45A; --next-bg:#3E2C18; --later:#A6B4C2; --later-bg:#26313B;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--moss)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px;max-width:1120px;margin:0 auto;padding:40px 28px 96px}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr);gap:24px;padding:24px 18px 72px}nav.toc{position:static;display:none}}
+nav.toc{position:sticky;top:24px;align-self:start;font-size:14px}
+nav.toc .toc-title{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;color:var(--muted);margin:0 0 10px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+nav.toc a{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:baseline;color:var(--ink-2);text-decoration:none;padding:5px 8px;border-radius:6px;line-height:1.3}
+nav.toc a:hover{background:var(--surface-2);color:var(--ink)}
+nav.toc a .k{font-family:"Barlow Condensed",sans-serif;font-weight:700;color:var(--amber);font-size:14px}
+main{max-width:72ch}
+h1,h2,h3,h4{font-family:"Barlow Condensed",sans-serif;text-wrap:balance;line-height:1.05;margin:0}
+h1{font-size:clamp(44px,6vw,64px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:34px;font-weight:700;margin-top:8px}
+h3{font-size:22px;font-weight:600;margin:36px 0 10px;color:var(--ink)}
+h4{font-size:17px;font-weight:600;margin:24px 0 6px;font-family:"Source Sans 3",sans-serif}
+p{margin:0 0 14px}
+.eyebrow{font-family:"Barlow Condensed",sans-serif;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--amber);margin:0 0 6px}
+header.hero{padding:8px 0 28px;border-bottom:1px solid var(--line);margin-bottom:40px}
+header.hero .sub{font-size:20px;color:var(--ink-2);max-width:60ch;margin-top:14px}
+header.hero .meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px;font-size:14px;color:var(--muted)}
+section{padding:36px 0 8px;border-top:1px solid var(--line);margin-top:28px}
+section:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.lede{font-size:19px;color:var(--ink-2)}
+.note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--amber);padding:14px 18px;border-radius:0 8px 8px 0;margin:18px 0}
+.note.moss{border-left-color:var(--moss)}
+.note p:last-child{margin-bottom:0}
+.note .lbl{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;color:var(--muted);display:block;margin-bottom:4px}
+.pill{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px 1px;border-radius:4px;vertical-align:middle;line-height:1.5}
+.pill.mvp{background:var(--mvp-bg);color:var(--mvp)}
+.pill.next{background:var(--next-bg);color:var(--next)}
+.pill.later{background:var(--later-bg);color:var(--later)}
+.tablewrap{overflow-x:auto;margin:14px 0 20px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:520px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:"Barlow Condensed",sans-serif;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:12.5px;color:var(--muted);background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+code,pre{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
+code{font-size:.88em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);color:var(--code-ink);padding:16px 18px;border-radius:8px;overflow-x:auto;font-size:13.5px;line-height:1.55;margin:14px 0 20px}
+pre code{background:none;padding:0;font-size:inherit;color:inherit}
+.flow{display:flex;flex-direction:column;gap:0;margin:16px 0 22px}
+.flow .step{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:10px 0}
+.flow .step + .step{border-top:1px dashed var(--line)}
+.flow .n{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:22px;color:var(--amber);line-height:1.2;font-variant-numeric:tabular-nums}
+.flow .t{font-weight:600}
+.flow .d{color:var(--ink-2);font-size:15.5px}
+.flow .screen{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--moss);background:var(--moss-soft);padding:1px 7px;border-radius:4px;margin-left:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:14px 0 20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.card h4{margin:0 0 6px;font-family:"Barlow Condensed",sans-serif;font-size:20px;font-weight:600}
+.card p{font-size:15px;color:var(--ink-2);margin:0}
+.card ul{margin:6px 0 0;padding-left:18px;font-size:15px;color:var(--ink-2)}
+.arch{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;margin:14px 0 20px}
+.arch svg{display:block;width:100%;height:auto}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow)}
+.phase .ph{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.phase .ph .m{font-family:"Barlow Condensed",sans-serif;font-weight:700;color:var(--amber);font-size:14px;letter-spacing:.12em}
+.phase .ph h4{margin:0;font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600}
+.phase .ph .est{margin-left:auto;font-size:13px;color:var(--muted)}
+.phase p{font-size:15.5px;color:var(--ink-2);margin:8px 0 0}
+.phase .done{font-size:14.5px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.phase .done b{color:var(--moss)}
+ul.tight{margin:6px 0 14px;padding-left:20px}
+ul.tight li{margin:3px 0}
+ul.tight li + li{margin-top:5px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:6px 16px;font-size:15.5px;margin:10px 0 18px}
+.kv dt{color:var(--muted);font-family:"Barlow Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase;font-size:13px;padding-top:3px}
+.kv dd{margin:0}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0 20px}
+.badge{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+.badge .ic{font-size:30px;line-height:1}
+.badge .nm{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:16px;margin-top:6px}
+.badge .rq{font-size:12.5px;color:var(--muted);line-height:1.35;margin-top:2px}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+@media (prefers-reduced-motion:no-preference){nav.toc a{transition:background .15s}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Sections">
+  <p class="toc-title">Blueprint</p>
+  <ol>
+    <li><a href="#read"><span class="k">0</span><span>Read this first</span></a></li>
+    <li><a href="#arch"><span class="k">A</span><span>Product architecture</span></a></li>
+    <li><a href="#scope"><span class="k">B</span><span>MVP scope</span></a></li>
+    <li><a href="#flow"><span class="k">C</span><span>User flow</span></a></li>
+    <li><a href="#schema"><span class="k">D</span><span>Database schema</span></a></li>
+    <li><a href="#api"><span class="k">E</span><span>API plan</span></a></li>
+    <li><a href="#frontend"><span class="k">F</span><span>Frontend architecture</span></a></li>
+    <li><a href="#admin"><span class="k">G</span><span>Admin dashboard</span></a></li>
+    <li><a href="#roadmap"><span class="k">H</span><span>Roadmap</span></a></li>
+    <li><a href="#data"><span class="k">I</span><span>Prototype data</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero">
+  <p class="eyebrow">First deliverable · Architecture &amp; MVP plan</p>
+  <h1>Zoo Quest Blueprint</h1>
+  <p class="sub">Turn a day at the zoo into an adventure. This document is the plan we build from: what the MVP is, what it deliberately is not, and how the pieces fit before any real code is written.</p>
+  <div class="meta"><span>Version 0.1</span><span>September 3, 2026</span><span>Stack: Next.js · Django REST · PostgreSQL</span><span>Fictional test zoo: Cedar Hollow Zoo</span></div>
+</header>
+
+<!-- ============ 0. READ FIRST ============ -->
+<section id="read">
+  <p class="eyebrow">Section 0</p>
+  <h2>Read this first</h2>
+  <p class="lede">The brief is strong. Before agreeing with all of it, here is what I pushed on, what I changed, and the decisions that shape everything below.</p>
+
+  <h3>Six decisions that simplify the whole product</h3>
+
+  <div class="note">
+    <span class="lbl">1 · QR codes are URLs, not codes</span>
+    <p>Every printed marker encodes <code>https://play.zooquest.app/s/CHZ-GIRAFFE-001</code>. That means the phone's built-in camera app does the scanning, the browser opens, and Zoo Quest handles it. No in-app camera permission, no scanner library fighting iOS Safari, no "allow camera?" prompt on a kid's first interaction. The in-app scanner still exists (for people already inside the app), but it is the secondary path. This one choice removes the biggest technical risk in the brief.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">2 · "Choose Adventure" lists quests, not challenge types</span>
+    <p>The brief's screen 2 offers "Animal Hunt / Scavenger Hunt / Brain Challenge / Photo Safari." Those are <em>mechanics</em>. A kid does not want to pick a mechanic; they want a mission. The screen should offer the zoo's <em>quests</em> (Savanna Safari, Rainforest Adventure, Wildlife Detective), each mixing several mechanics. Plus a free-roam mode: scan anything, discover animals, earn XP, no quest required. Mechanics stay a content-design tool for the admin.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">3 · Django Admin is the MVP admin dashboard</span>
+    <p>Building a custom React admin for animals, exhibits, challenges, quests and badges is roughly a third of the total project. Django Admin gives you all of it in a day, with inlines, filters and permissions. We dress it up (a modern admin theme, custom list displays, a QR sheet print action) and ship. The custom admin is the first thing we build when a real zoo is ready to pay, because then we know what they actually need.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">4 · Photo challenges are honor-system in the MVP</span>
+    <p>Uploading photos means object storage, moderation, and photos of children on your server. That is a privacy and cost problem, not a fun problem. MVP: "Take a photo of an animal eating. Show your team. Tap Done." The photo lives on the family's phone where it belongs. Uploads come back when there is a reason for them (a photo wall, AI verification).</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">5 · One phone, one family, one session</span>
+    <p>A guest session <em>is</em> the family. No parent/child tree, no per-child profiles. The only optional input is a team name. This also keeps you clean on children's privacy law (COPPA): we never collect a name, email, or photo from anyone. Family member profiles are a NEXT feature and the schema leaves room for them.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">6 · The map is a picture with pins</span>
+    <p>A static zoo map image with exhibit pins at percentage coordinates. Discovered pins light up. No tiles, no GPS, no map library. It answers "where haven't we been yet?", which is the only question the MVP map needs to answer.</p>
+  </div>
+
+  <h3>Technical problems to design around</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Problem</th><th>Why it bites</th><th>Design response</th></tr></thead>
+    <tbody>
+    <tr><td>Session loss between scans</td><td>Every QR scan opens a fresh browser tab. If identity lives only in memory, XP resets.</td><td>Guest token in <code>localStorage</code> + a first-party cookie, same origin for every marker URL. Token is created on first visit and attached as <code>X-Guest-Token</code> on every API call.</td></tr>
+    <tr><td>iOS "Add to Home Screen" storage</td><td>A home-screen PWA on iOS has separate storage from Safari, so installing mid-visit orphans progress.</td><td>Do not prompt installation during the visit. Keep it a browser experience for MVP. Resume codes (NEXT) fix this properly.</td></tr>
+    <tr><td>Repeat-scan XP farming</td><td>Kids will absolutely scan the giraffe 40 times.</td><td>Discovery XP is awarded once per animal per session (unique constraint). Repeat scans still succeed and show the animal page, just no XP. Every scan is logged for analytics.</td></tr>
+    <tr><td>Spotty cellular</td><td>Zoos are big, often rural, and full of concrete.</td><td>Service worker caches the app shell; API payloads are tiny JSON; optimistic UI with retry on submit. Full offline queueing is NEXT.</td></tr>
+    <tr><td>Bright sunlight, one hand, walking</td><td>Small tap targets and low contrast fail immediately.</td><td>Minimum 56px tap targets, dark-on-light default with strong contrast, one primary action per screen, answers as big buttons, never a text field except the optional team name.</td></tr>
+    <tr><td>Multi-tenancy creep</td><td>Easy to hardcode "the zoo" everywhere, painful to unwind.</td><td>Every content row has a <code>zoo</code> foreign key from day one, and API URLs are zoo-scoped. Shared database, row-level tenancy. No schema-per-tenant machinery.</td></tr>
+    <tr><td>Hardcoded game numbers</td><td>The brief is explicit: XP values must be editable.</td><td>XP lives on each challenge, quest and badge row; defaults live in <code>Zoo.settings</code>; levels are rows. Nothing numeric in code.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Where this document fits</h3>
+  <p>Sections A through I are the deliverable from the brief, in order. Section 0 is the argument. The seed data (Section I) is a real Django fixture you can load with one command, delivered alongside this page. Nothing here is code you have to keep; all of it is decisions you can push back on before Milestone 0 starts.</p>
+</section>
+
+<!-- ============ A. ARCHITECTURE ============ -->
+<section id="arch">
+  <p class="eyebrow">Section A</p>
+  <h2>Product architecture</h2>
+  <p class="lede">Three surfaces, one backend, one database. The phone is a controller; the zoo is the game board; the server is the referee keeping score.</p>
+
+  <div class="arch" role="img" aria-label="Architecture diagram: printed QR markers open the Explorer PWA, which talks to the Django API over HTTPS; the Django API reads and writes PostgreSQL; zoo staff use Django Admin on the same backend.">
+  <svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, system-ui, sans-serif" font-size="13">
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+    <!-- physical world -->
+    <rect x="12" y="20" width="200" height="290" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+    <text x="24" y="42" font-family="Barlow Condensed, sans-serif" font-weight="700" letter-spacing="1.5" fill="var(--muted)" font-size="12">THE ZOO (PHYSICAL)</text>
+    <rect x="28" y="60" width="168" height="54" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+    <text x="40" y="82" fill="var(--ink)" font-weight="600">Printed QR markers</text>
+    <text x="40" y="100" fill="var(--muted)" font-size="12">/s/CHZ-GIRAFFE-001</text>
+    <rect x="28" y="130" width="168" height="54" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+    <text x="40" y="152" fill="var(--ink)" font-weight="600">Family with one phone</text>
+    <text x="40" y="170" fill="var(--muted)" font-size="12">Camera app scans marker</text>
+    <rect x="28" y="200" width="168" height="54" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+    <text x="40" y="222" fill="var(--ink)" font-weight="600">Zoo staff</text>
+    <text x="40" y="240" fill="var(--muted)" font-size="12">Desk, laptop, admin login</text>
+    <!-- frontend -->
+    <rect x="262" y="60" width="190" height="124" rx="10" fill="var(--moss-soft)" stroke="var(--moss)"/>
+    <text x="276" y="84" font-family="Barlow Condensed, sans-serif" font-weight="700" letter-spacing="1.5" fill="var(--moss)" font-size="12">EXPLORER APP (PWA)</text>
+    <text x="276" y="106" fill="var(--ink)" font-weight="600">Next.js, mobile-first</text>
+    <text x="276" y="126" fill="var(--ink-2)" font-size="12.5">Quest · Scan · Map · Profile</text>
+    <text x="276" y="144" fill="var(--ink-2)" font-size="12.5">Service worker caches shell</text>
+    <text x="276" y="162" fill="var(--ink-2)" font-size="12.5">Hosted on Vercel</text>
+    <!-- admin -->
+    <rect x="262" y="200" width="190" height="72" rx="10" fill="var(--amber-soft)" stroke="var(--amber)"/>
+    <text x="276" y="224" font-family="Barlow Condensed, sans-serif" font-weight="700" letter-spacing="1.5" fill="var(--amber)" font-size="12">ADMIN (MVP)</text>
+    <text x="276" y="246" fill="var(--ink)" font-weight="600">Django Admin, themed</text>
+    <text x="276" y="264" fill="var(--ink-2)" font-size="12.5">Content · QR sheets · Analytics</text>
+    <!-- backend -->
+    <rect x="502" y="60" width="240" height="212" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+    <text x="516" y="84" font-family="Barlow Condensed, sans-serif" font-weight="700" letter-spacing="1.5" fill="var(--muted)" font-size="12">BACKEND · RAILWAY</text>
+    <rect x="516" y="98" width="212" height="82" rx="8" fill="var(--surface-2)" stroke="var(--line)"/>
+    <text x="528" y="120" fill="var(--ink)" font-weight="600">Django + DRF  /api/v1</text>
+    <text x="528" y="138" fill="var(--ink-2)" font-size="12.5">tenants · content · play · analytics</text>
+    <text x="528" y="156" fill="var(--ink-2)" font-size="12.5">Verification strategies per challenge type</text>
+    <text x="528" y="172" fill="var(--ink-2)" font-size="12.5">Badge rule engine · XP ledger</text>
+    <rect x="516" y="196" width="212" height="60" rx="8" fill="var(--surface-2)" stroke="var(--line)"/>
+    <text x="528" y="218" fill="var(--ink)" font-weight="600">PostgreSQL</text>
+    <text x="528" y="236" fill="var(--ink-2)" font-size="12.5">One database, every row has a zoo_id</text>
+    <!-- arrows -->
+    <line x1="196" y1="87" x2="258" y2="105" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="196" y1="227" x2="258" y2="236" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="452" y1="122" x2="498" y2="122" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="456" y="114" fill="var(--muted)" font-size="11">JSON</text>
+    <line x1="452" y1="236" x2="498" y2="236" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="300" y="300" fill="var(--muted)" font-size="12">Camera app opens marker URL → app resolves zoo + marker → API records scan</text>
+  </svg>
+  </div>
+
+  <h3>The pieces</h3>
+  <div class="grid2">
+    <div class="card"><h4>Explorer app</h4><p>What families use. Next.js (App Router), mobile-first, installable PWA but not pushed to install. Talks only to the public API with a guest token. Five screens matter: Quest, Challenge, Success, Map, Profile.</p></div>
+    <div class="card"><h4>API</h4><p>Django + Django REST Framework. Two audiences: <code>/api/v1/</code> for guests (token auth, zoo-scoped) and later <code>/api/v1/admin/</code> for the custom admin (session auth, staff membership). All game rules live here, never in the frontend.</p></div>
+    <div class="card"><h4>Admin</h4><p>Django Admin for MVP, themed with <a href="https://unfoldadmin.com/">Unfold</a> so it does not look like 2008. Includes a "Print QR sheet" action that renders every marker as a printable page. Custom React admin is NEXT.</p></div>
+    <div class="card"><h4>Database</h4><p>PostgreSQL. Four Django apps: <code>tenants</code> (zoos, staff), <code>content</code> (what a zoo authors), <code>play</code> (what a family does), <code>analytics</code> (events). Content is authored rarely and read constantly; play data is write-heavy and per-session.</p></div>
+  </div>
+
+  <h3>Hosting recommendation</h3>
+  <p>Vercel for the Next.js app (free tier is fine for a field test, deploys on push, handles the PWA correctly). Railway for Django and PostgreSQL in one project (about $5 to $10 a month at MVP traffic, one-click Postgres, no server management). Media files (animal images, zoo map) on Cloudflare R2 or Railway volumes; R2 has no egress fees and a generous free tier. Total MVP infrastructure: under $15 a month.</p>
+  <p>Why not a single box, or Docker on a VPS? You would spend the first two weekends on deployment instead of the game. Why not AWS? Same reason, multiplied. Move when a paying zoo makes you.</p>
+
+  <h3>Where the game logic lives</h3>
+  <p>Three server-side subsystems carry the whole product, and each is a small, testable Python module:</p>
+  <ul class="tight">
+    <li><strong>Scan resolver.</strong> Given a marker code and a guest token: find the marker, record the scan, award discovery XP if this animal is new for the session, and return which active challenges this scan just completed or unlocked.</li>
+    <li><strong>Challenge verifiers.</strong> One class per challenge type (<code>AnimalHuntVerifier</code>, <code>WhoAmIVerifier</code>, ...) with a single <code>verify(challenge, session, submission) → Result</code> method. Adding a challenge type later means adding a class and a frontend component, nothing else.</li>
+    <li><strong>Badge rule engine.</strong> After any XP event, evaluate every active badge rule the session has not yet earned. Rules are <code>rule_type</code> + <code>rule_config</code> JSON so the admin can invent badges without a deploy.</li>
+  </ul>
+</section>
+
+<!-- ============ B. SCOPE ============ -->
+<section id="scope">
+  <p class="eyebrow">Section B</p>
+  <h2>MVP scope</h2>
+  <p class="lede">The MVP proves one thing: a family enjoys this while physically at a zoo. Everything is classified against that test.</p>
+
+  <h3><span class="pill mvp">MVP</span> Must have</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Feature</th><th>Why it is necessary to prove the idea</th></tr></thead>
+    <tbody>
+    <tr><td>QR marker landing (<code>/s/[code]</code>)</td><td>The single entry point. Without it there is no physical-world link.</td></tr>
+    <tr><td>Anonymous guest session with persistent XP</td><td>Progress must survive across scans and a two-hour visit.</td></tr>
+    <tr><td>Animal discovery + one-time discovery XP</td><td>The core dopamine hit and the anti-farming rule.</td></tr>
+    <tr><td>Quests (ordered challenge lists) with start / progress / complete</td><td>Gives the visit a narrative and a finish line.</td></tr>
+    <tr><td>Six challenge types</td><td>Hunt, Scavenger, Who Am I, Observation, Photo (self-report), Conservation. Variety is what keeps it from being "scan 10 codes."</td></tr>
+    <tr><td>Success screen with XP animation</td><td>The moment a kid shouts "next one!" Under-invest here and nothing else matters.</td></tr>
+    <tr><td>Levels and badges (rule-driven)</td><td>Collection is the reason to come back and finish.</td></tr>
+    <tr><td>Explorer profile</td><td>Visible proof of progress for the kid; the "show grandma" screen.</td></tr>
+    <tr><td>Static map with discovered / undiscovered pins</td><td>Answers "where do we go next?" without GPS.</td></tr>
+    <tr><td>Admin: manage all content (Django Admin)</td><td>You author Cedar Hollow data yourself; a zoo must be able to edit without you.</td></tr>
+    <tr><td>Printable QR sheet</td><td>You cannot field-test without physical markers.</td></tr>
+    <tr><td>Analytics event log + a plain summary view</td><td>Field-test evidence: what did people actually do?</td></tr>
+    <tr><td>PWA basics: manifest, app-shell caching, fast first load</td><td>Zero-install and tolerable on weak signal.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="pill next">NEXT</span> Should have, after the first field test</h3>
+  <ul class="tight">
+    <li>Custom React admin dashboard with analytics charts (build it when you know what a real zoo asks for).</li>
+    <li>Resume code / QR on the profile screen so a family can move the session to another phone or come back next month.</li>
+    <li>Family members (parent + kids under one session) with per-kid badge display.</li>
+    <li>Offline queueing of scans and answers with background sync.</li>
+    <li>Photo uploads with moderation queue.</li>
+    <li>Hint economy: hints cost XP or a 60-second wait, to reward exploration over tapping.</li>
+    <li>Zoo branding (logo, colors, map) as tenant settings surfaced in the UI.</li>
+    <li>Seasonal quests using the existing <code>starts_at / ends_at</code> fields.</li>
+    <li>In-app QR scanner improvements (torch, manual code entry polish).</li>
+  </ul>
+
+  <h3><span class="pill later">LATER</span> Cool, but a distraction right now</h3>
+  <ul class="tight">
+    <li>GPS unlocks, beacons, AR, AI animal recognition.</li>
+    <li>Leaderboards, social features, sharing.</li>
+    <li>Rewards, gift shop coupons, membership integrations.</li>
+    <li>Billing, plans, self-serve zoo signup.</li>
+    <li>Dynamic storylines, teacher / classroom mode.</li>
+    <li>Native apps.</li>
+  </ul>
+
+  <div class="note moss">
+    <span class="lbl">Scope rule for the rest of the project</span>
+    <p>If a new idea does not change whether a family at Cedar Hollow finishes a quest and asks for another, it is NEXT or LATER by default. I will say so when it comes up.</p>
+  </div>
+</section>
+
+<!-- ============ C. USER FLOW ============ -->
+<section id="flow">
+  <p class="eyebrow">Section C</p>
+  <h2>User flow</h2>
+  <p class="lede">One family, one phone, first visit. Screen names in green are the routes from Section F.</p>
+
+  <div class="flow">
+    <div class="step"><div class="n">1</div><div><div class="t">Visitor enters the zoo</div><div class="d">Sign at the entrance: "Turn today into an adventure. Scan to start." The marker is <code>CHZ-BASECAMP-001</code>.</div></div></div>
+    <div class="step"><div class="n">2</div><div><div class="t">Scans with the camera app</div><div class="d">Phone opens <code>play.zooquest.app/s/CHZ-BASECAMP-001</code>. The app has no session yet, so it creates a guest token for Cedar Hollow, stores it, and records the scan. <span class="screen">/s/[code]</span></div></div></div>
+    <div class="step"><div class="n">3</div><div><div class="t">Welcome</div><div class="d">Full-bleed image, "ZOO QUEST. Your adventure starts here." Optional team name (skippable). One button: Start Exploring. Badge "First Steps" is quietly earned by the scan and shown after the first success, not here. <span class="screen">/z/cedar-hollow</span></div></div></div>
+    <div class="step"><div class="n">4</div><div><div class="t">Chooses an adventure</div><div class="d">Three quest cards: Savanna Safari (featured, 6 missions, about 55 min), Rainforest Adventure, Wildlife Detective. Plus "Just explore" which skips quests. Tap Savanna Safari → Start Quest. <span class="screen">/z/cedar-hollow/quests</span></div></div></div>
+    <div class="step"><div class="n">5</div><div><div class="t">Active quest, mission 1 of 6</div><div class="d">Mission card: "Find a Giraffe. Head to the African Savanna..." Hint button (tap to reveal). Progress bar 0/6. Big Scan button pinned to the bottom. The map tab shows the Savanna pin pulsing. <span class="screen">/z/cedar-hollow/quest/savanna-safari</span></div></div></div>
+    <div class="step"><div class="n">6</div><div><div class="t">Walks to the giraffes, scans the rail marker</div><div class="d">Either the camera app or the in-app scanner opens <code>/s/CHZ-GIRAFFE-001</code>. The scan resolver: new animal → +100 discovery XP; matches the active mission's accepted marker → mission complete, +50 XP; badge engine → "Giraffe Spotter" unlocked. <span class="screen">/s/[code]</span></div></div></div>
+    <div class="step"><div class="n">7</div><div><div class="t">Success</div><div class="d">"MISSION COMPLETE! You found a giraffe!" XP counter rolls up +150, the giraffe fact appears ("its tongue is purple"), then the badge card slides in. One button: Next Mission. <span class="screen">/z/cedar-hollow/success</span></div></div></div>
+    <div class="step"><div class="n">8</div><div><div class="t">Mission 2, right here</div><div class="d">"Who Am I?" riddle about the giraffe. Four big answer buttons. Correct → +100 XP and the explanation. Wrong → gentle shake, "Try again," no XP penalty. Mission 3 is the observation challenge: a 30-second timer while the family actually watches, then "What are they doing?" Any answer completes it.</div></div></div>
+    <div class="step"><div class="n">9</div><div><div class="t">Continues exploring</div><div class="d">Elephant hunt, conservation question, then the lion on the ridge. Every scan also fires "Discovered!" for any animal the family passes that is not in the quest, so wandering is rewarded too.</div></div></div>
+    <div class="step"><div class="n">10</div><div><div class="t">Completes the quest</div><div class="d">Final mission scan → quest complete screen: "SAVANNA SCOUT. Quest Complete! +500 XP." Level-up to Animal Explorer plays here if the threshold is crossed. Two buttons: See My Badges, Next Adventure.</div></div></div>
+    <div class="step"><div class="n">11</div><div><div class="t">Profile at the car</div><div class="d">Level, XP, 6 animals discovered, 6 challenges done, 3 badges, 2 quests still locked with "Come back and finish" on them. <span class="screen">/z/cedar-hollow/profile</span></div></div></div>
+  </div>
+
+  <h3>Return visitor and edge paths</h3>
+  <ul class="tight">
+    <li><strong>Scan without a quest active:</strong> discovery XP, animal card, and a prompt: "This marker is part of Savanna Safari. Start it?"</li>
+    <li><strong>Scan a marker already discovered:</strong> animal page opens, "Already discovered" tag, no XP, no error. Repeat scans are logged.</li>
+    <li><strong>Scan the wrong animal during a hunt:</strong> still a discovery (+100 XP), then "Not the one you're looking for. Hint?" The mission stays open.</li>
+    <li><strong>Dead signal at the rail:</strong> the app shell loads from cache, the scan request retries three times with a visible "Saving..." state, then offers "Try again" without losing the code.</li>
+    <li><strong>Opens the app a week later, same phone:</strong> same token in storage, everything is still there. Different phone: starts fresh (resume codes are NEXT).</li>
+  </ul>
+</section>
+
+<!-- ============ D. SCHEMA ============ -->
+<section id="schema">
+  <p class="eyebrow">Section D</p>
+  <h2>Database schema</h2>
+  <p class="lede">Four Django apps. Content is what a zoo authors; play is what a family does. The line between them is the line between tenant configuration and user data, and it matters for analytics, backups and eventually billing.</p>
+
+  <h3>How the tables relate</h3>
+  <pre><code>tenants.Zoo ──┬── StaffMembership ── auth.User
+              │
+              ├── content.Exhibit ──┬── Animal ──── Marker (QR)
+              │                     └── Marker (exhibit-only, e.g. Base Camp)
+              ├── content.Challenge ── accept_markers (M2M → Marker)
+              ├── content.Quest ── QuestChallenge ── Challenge
+              ├── content.Badge          content.Level
+              │
+              └── play.GuestSession ──┬── Scan ──────── Marker
+                                      ├── Discovery ─── Animal
+                                      ├── QuestProgress ── Quest
+                                      ├── ChallengeAttempt ── Challenge
+                                      ├── BadgeAward ── Badge
+                                      └── XPEvent  (ledger: every XP change, with its source)
+analytics.Event ── Zoo, GuestSession (screen views, heartbeats, funnels)</code></pre>
+
+  <h3>tenants</h3>
+  <pre><code>class Zoo(models.Model):
+    name          = CharField(120)
+    slug          = SlugField(unique=True)          # cedar-hollow → /z/cedar-hollow
+    timezone      = CharField(64, default="UTC")
+    logo          = ImageField(blank=True)
+    map_image     = ImageField(blank=True)          # the static map behind the pins
+    primary_color = CharField(7, default="#2F6B4F")
+    settings      = JSONField(default=dict)         # discovery_xp, quest_complete_xp,
+                                                    # xp_by_difficulty, repeat_scan_cooldown_minutes
+    is_active     = BooleanField(default=True)
+    created_at    = DateTimeField(auto_now_add=True)
+
+class StaffMembership(models.Model):
+    user = ForeignKey(User)   zoo = ForeignKey(Zoo)
+    role = CharField(choices=[("owner","Owner"),("editor","Editor"),("viewer","Viewer")])
+    class Meta: unique_together = [("user","zoo")]</code></pre>
+  <p>A <code>ZooScopedModel</code> abstract base (with <code>zoo = ForeignKey(Zoo)</code> and a custom manager <code>.for_zoo(zoo)</code>) is inherited by every content and play model. That is the entire multi-tenancy layer for the MVP, and it is enough.</p>
+
+  <h3>content</h3>
+  <pre><code>class Exhibit(ZooScopedModel):
+    name, slug, description, image
+    map_x = DecimalField(5,2)   map_y = DecimalField(5,2)   # percent of map_image
+    sort_order = PositiveIntegerField(default=0)
+    is_active  = BooleanField(default=True)
+    class Meta: unique_together = [("zoo","slug")]
+
+class Animal(ZooScopedModel):
+    exhibit             = ForeignKey(Exhibit, related_name="animals")
+    name, slug, species, scientific_name, description, image
+    emoji               = CharField(8, blank=True)          # 🦒 fallback icon
+    fun_facts           = JSONField(default=list)           # ["...", "..."]
+    conservation_status = CharField(2, choices=IUCN)        # LC NT VU EN CR EW EX
+    conservation_info   = TextField(blank=True)
+    tags                = JSONField(default=list)           # ["africa","mammal","stripes"]
+    is_active           = BooleanField(default=True)
+
+class Marker(ZooScopedModel):                     # one physical QR code
+    code    = CharField(40)                       # CHZ-GIRAFFE-001, printed
+    exhibit = ForeignKey(Exhibit)
+    animal  = ForeignKey(Animal, null=True, blank=True)
+    label   = CharField(120)                      # "Giraffe viewing rail" (for staff)
+    is_active = BooleanField(default=True)
+    class Meta: unique_together = [("zoo","code")]
+
+class Challenge(ZooScopedModel):
+    TYPES = animal_hunt | scavenger | who_am_i | observation | photo | conservation
+    DIFFICULTY = easy | medium | hard
+    title, slug, prompt, hint (blank), explanation (blank)   # explanation = the learning beat
+    challenge_type, difficulty
+    xp_reward       = PositiveIntegerField()      # editable; seeded from Zoo.settings defaults
+    animal          = ForeignKey(Animal, null=True)
+    exhibit         = ForeignKey(Exhibit, null=True)
+    accept_markers  = ManyToManyField(Marker, blank=True)   # which scans complete it
+    config          = JSONField(default=dict)     # options, correct, timer_seconds,
+                                                  # any_answer_correct, verification
+    is_active       = BooleanField(default=True)
+
+class Quest(ZooScopedModel):
+    name, slug, description, cover_image
+    xp_reward         = PositiveIntegerField(default=500)
+    badge             = ForeignKey("Badge", null=True, blank=True)
+    estimated_minutes = PositiveIntegerField(null=True)
+    starts_at, ends_at = DateTimeField(null=True)  # seasonal quests later, same table
+    is_active, is_featured, sort_order
+
+class QuestChallenge(models.Model):               # ordered through-table
+    quest = ForeignKey(Quest)   challenge = ForeignKey(Challenge)
+    order = PositiveIntegerField()   is_final = BooleanField(default=False)
+    class Meta: unique_together = [("quest","order")]
+
+class Badge(ZooScopedModel):
+    name, slug, description, icon (emoji), image
+    RULES = scan_count | discover_animal | discover_count | exhibit_count
+          | challenge_type_count | quest_complete
+    rule_type   = CharField(choices=RULES)
+    rule_config = JSONField(default=dict)         # {"count":5,"tag":"africa"} etc.
+    xp_reward   = PositiveIntegerField(default=0)
+    is_secret   = BooleanField(default=False)     # hidden until earned
+    is_active   = BooleanField(default=True)
+
+class Level(ZooScopedModel):
+    number = PositiveIntegerField()   title = CharField(80)   xp_required = PositiveIntegerField()
+    class Meta: unique_together = [("zoo","number")]</code></pre>
+
+  <h3>play</h3>
+  <pre><code>class GuestSession(ZooScopedModel):               # "the family"
+    token        = UUIDField(default=uuid4, unique=True, editable=False)
+    team_name    = CharField(40, blank=True)
+    total_xp     = PositiveIntegerField(default=0)   # denormalized from XPEvent
+    created_at   = DateTimeField(auto_now_add=True)
+    last_seen_at = DateTimeField(auto_now=True)
+    user_agent   = CharField(200, blank=True)
+
+class Scan(models.Model):                          # raw log, one row per scan
+    session = ForeignKey(GuestSession)   marker = ForeignKey(Marker)
+    scanned_at = DateTimeField(auto_now_add=True)
+    RESULT = discovery | repeat | completed_challenge | inactive
+    result  = CharField(choices=RESULT)   xp_awarded = PositiveIntegerField(default=0)
+
+class Discovery(models.Model):
+    session = ForeignKey(GuestSession)   animal = ForeignKey(Animal)
+    marker  = ForeignKey(Marker)   discovered_at = DateTimeField(auto_now_add=True)
+    class Meta: unique_together = [("session","animal")]     # the anti-farming rule
+
+class QuestProgress(models.Model):
+    session = ForeignKey(GuestSession)   quest = ForeignKey(Quest)
+    STATUS = active | completed | abandoned
+    status, started_at, completed_at
+    class Meta: unique_together = [("session","quest")]
+
+class ChallengeAttempt(models.Model):
+    session   = ForeignKey(GuestSession)   challenge = ForeignKey(Challenge)
+    quest_progress = ForeignKey(QuestProgress, null=True)   # None in free roam
+    STATUS = in_progress | completed
+    status, attempts = PositiveIntegerField(default=0)
+    answer = JSONField(null=True)   xp_awarded = PositiveIntegerField(default=0)
+    started_at, completed_at
+    class Meta: unique_together = [("session","challenge")]  # complete once per session
+
+class BadgeAward(models.Model):
+    session = ForeignKey(GuestSession)   badge = ForeignKey(Badge)   awarded_at
+    class Meta: unique_together = [("session","badge")]
+
+class XPEvent(models.Model):                       # append-only ledger
+    session = ForeignKey(GuestSession)   amount = IntegerField()
+    SOURCE = discovery | challenge | quest | badge | adjustment
+    source_type, source_id = PositiveIntegerField(null=True)
+    created_at = DateTimeField(auto_now_add=True)</code></pre>
+
+  <h3>analytics</h3>
+  <pre><code>class Event(models.Model):
+    zoo     = ForeignKey(Zoo)   session = ForeignKey(GuestSession, null=True)
+    name    = CharField(60)     # screen_view, quest_started, hint_revealed, app_open, ...
+    payload = JSONField(default=dict)
+    created_at = DateTimeField(auto_now_add=True, db_index=True)</code></pre>
+  <p>Most of the brief's analytics list falls out of the play tables directly (quests started and completed from <code>QuestProgress</code>, most popular animal from <code>Discovery</code>, least completed challenge from <code>ChallengeAttempt</code>, average XP from <code>GuestSession.total_xp</code>). <code>Event</code> exists for things the play tables cannot see: screen views, session length, where people drop off.</p>
+
+  <h3>Why these choices</h3>
+  <ul class="tight">
+    <li><strong>JSON <code>config</code> on Challenge</strong> instead of six sub-tables: each type needs different fields, the admin edits them as a form per type, and adding a seventh type costs zero migrations. Validation lives in the verifier class for that type.</li>
+    <li><strong><code>accept_markers</code> as many-to-many</strong>: "Find a reptile" is satisfied by two different markers. One field handles hunts, scavenger clues and location-locked quizzes.</li>
+    <li><strong>An XP ledger plus a denormalized total</strong>: the ledger makes analytics, debugging and future "undo" trivial; the total keeps the profile screen a single row read.</li>
+    <li><strong>Unique constraints as game rules</strong>: one discovery per animal, one completion per challenge, one award per badge. The database enforces anti-abuse so the code does not have to be clever.</li>
+    <li><strong>Nothing about people</strong>: no names, emails, photos or device IDs beyond a random token. Children's privacy is handled by never collecting anything.</li>
+  </ul>
+</section>
+
+<!-- ============ E. API ============ -->
+<section id="api">
+  <p class="eyebrow">Section E</p>
+  <h2>API plan</h2>
+  <p class="lede">Public endpoints are few and fat: the frontend should be able to render any screen from one request. Guests authenticate with <code>X-Guest-Token</code>; staff with Django sessions.</p>
+
+  <h3>Guest / explorer endpoints</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Method · Path</th><th>Purpose</th><th>Notes</th></tr></thead>
+    <tbody>
+    <tr><td><code>POST /api/v1/zoos/{zoo}/sessions/</code></td><td>Create a guest session</td><td>Returns <code>{token, zoo}</code>. Body may include <code>team_name</code>. Called once by the client when no token exists.</td></tr>
+    <tr><td><code>GET /api/v1/me/</code></td><td>Profile</td><td>XP, level (current + next threshold), counts, badges earned, active quest summary. Powers Profile and the top bar.</td></tr>
+    <tr><td><code>PATCH /api/v1/me/</code></td><td>Update team name</td><td>Only writable field.</td></tr>
+    <tr><td><code>GET /api/v1/zoos/{zoo}/quests/</code></td><td>Choose Adventure</td><td>Active quests with mission count, estimated minutes, badge preview, and this session's status on each.</td></tr>
+    <tr><td><code>GET /api/v1/quests/{slug}/</code></td><td>Quest detail</td><td>Ordered challenges with per-challenge completion state for this session and which one is current.</td></tr>
+    <tr><td><code>POST /api/v1/quests/{slug}/start/</code></td><td>Start a quest</td><td>Creates QuestProgress. Idempotent.</td></tr>
+    <tr><td><code>POST /api/v1/scan/</code></td><td><strong>The main verb.</strong> Body <code>{code}</code></td><td>Runs the scan resolver. Returns marker, animal (with facts), <code>discovery</code> (new or repeat, xp), <code>completed_challenges[]</code>, <code>unlocked_badges[]</code>, <code>level_up</code>, <code>suggested_quest</code>. One response renders the whole Success screen.</td></tr>
+    <tr><td><code>GET /api/v1/challenges/{id}/</code></td><td>Challenge detail</td><td>Prompt, type, config the client needs (options, timer). Never includes the correct answer.</td></tr>
+    <tr><td><code>POST /api/v1/challenges/{id}/submit/</code></td><td>Answer a non-scan challenge</td><td>Body <code>{answer}</code>. Returns <code>correct</code>, <code>xp_awarded</code>, <code>explanation</code>, badges, level up, and <code>next_challenge</code> if inside a quest. Wrong answers increment <code>attempts</code>.</td></tr>
+    <tr><td><code>POST /api/v1/challenges/{id}/hint/</code></td><td>Reveal hint</td><td>Returns the hint and logs the event. Exists as an endpoint so a hint economy can be added later without a client change.</td></tr>
+    <tr><td><code>GET /api/v1/zoos/{zoo}/map/</code></td><td>Map</td><td>Map image URL, exhibits with coordinates, animal counts, and per-exhibit discovered / total for this session. Marks the active mission's exhibit.</td></tr>
+    <tr><td><code>GET /api/v1/zoos/{zoo}/animals/</code> · <code>/animals/{slug}/</code></td><td>Field guide</td><td>Discovered animals show full facts; undiscovered show silhouette + exhibit only.</td></tr>
+    <tr><td><code>GET /api/v1/me/badges/</code></td><td>Badge case</td><td>All non-secret badges with earned state and progress hints ("2 of 3 conservation challenges").</td></tr>
+    <tr><td><code>POST /api/v1/events/</code></td><td>Analytics</td><td>Batched client events: <code>[{name, payload, ts}]</code>. Fire-and-forget.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The scan response, concretely</h3>
+  <pre><code>POST /api/v1/scan/      X-Guest-Token: 3f1c…      {"code": "CHZ-GIRAFFE-001"}
+
+200 OK
+{
+  "marker":   {"code": "CHZ-GIRAFFE-001", "exhibit": {"slug": "african-savanna", "name": "African Savanna"}},
+  "animal":   {"slug": "giraffe", "name": "Giraffe", "emoji": "🦒", "fun_fact": "A giraffe's tongue is…"},
+  "discovery": {"is_new": true, "xp": 100},
+  "completed_challenges": [{"id": 1, "title": "Find a Giraffe", "xp": 50, "quest": "savanna-safari"}],
+  "unlocked_badges": [{"slug": "giraffe-spotter", "name": "Giraffe Spotter", "icon": "🦒", "xp": 25}],
+  "level_up": null,
+  "totals":   {"xp": 175, "level": {"number": 1, "title": "Zoo Rookie", "next_at": 300}},
+  "next":     {"type": "challenge", "id": 11, "title": "Who Am I?"}
+}</code></pre>
+
+  <h3>Staff endpoints <span class="pill next">NEXT</span></h3>
+  <p>Not built in the MVP; Django Admin covers them. When the React admin comes, it is a straightforward set of DRF <code>ModelViewSet</code>s under <code>/api/v1/admin/zoos/{zoo}/</code> for animals, exhibits, markers, challenges, quests, badges and levels, plus <code>GET .../analytics/summary/?range=today|7d|30d</code> returning the numbers from Section 17 of the brief. Permissions come from <code>StaffMembership.role</code>.</p>
+
+  <h3>Cross-cutting rules</h3>
+  <ul class="tight">
+    <li>Every guest endpoint resolves the session from the token and refuses content from a different zoo than the session's. Cross-zoo scans return a friendly "This marker belongs to another zoo."</li>
+    <li>All writes are idempotent where a flaky network could double-fire: starting a quest twice, scanning twice, submitting a completed challenge again all return the current state rather than an error.</li>
+    <li>Responses include the updated totals so the client never has to make a second request to animate the XP bar.</li>
+    <li>DRF throttling on <code>scan</code> and <code>submit</code> (for example 30 a minute per token) is cheap insurance.</li>
+  </ul>
+</section>
+
+<!-- ============ F. FRONTEND ============ -->
+<section id="frontend">
+  <p class="eyebrow">Section F</p>
+  <h2>Frontend architecture</h2>
+  <p class="lede">Next.js App Router, TypeScript, Tailwind for speed, and as few libraries as possible. The frontend renders state; it never decides game rules.</p>
+
+  <h3>Routes</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Route</th><th>Screen</th><th>What it does</th></tr></thead>
+    <tbody>
+    <tr><td><code>/s/[code]</code></td><td>Marker landing</td><td>Ensures a session exists (creates one for the marker's zoo if not), calls <code>POST /scan</code>, then redirects to Success or Animal. Never shows a blank page: a skeleton with the exhibit name appears instantly.</td></tr>
+    <tr><td><code>/z/[zoo]</code></td><td>Welcome</td><td>Hero, optional team name, Start Exploring. Skipped automatically if the session already has progress.</td></tr>
+    <tr><td><code>/z/[zoo]/quests</code></td><td>Choose Adventure</td><td>Quest cards with status (new / in progress 3 of 6 / complete). "Just explore" link.</td></tr>
+    <tr><td><code>/z/[zoo]/quest/[slug]</code></td><td>Active Quest</td><td>Current mission card, hint reveal, progress, mission list (done / current / locked), Scan button.</td></tr>
+    <tr><td><code>/z/[zoo]/challenge/[id]</code></td><td>Challenge</td><td>Renders the component for the challenge type. Answer → submit → Success.</td></tr>
+    <tr><td><code>/z/[zoo]/scan</code></td><td>In-app scanner</td><td>Camera viewfinder ("Scan the quest marker") with manual code entry fallback.</td></tr>
+    <tr><td><code>/z/[zoo]/success</code></td><td>Success</td><td>Reads the last scan or submit result from the store and plays the celebration sequence. Deep-link safe: if there is no result, it redirects to the quest.</td></tr>
+    <tr><td><code>/z/[zoo]/map</code></td><td>Map</td><td>Static image, pins, active mission highlight, tap pin → exhibit sheet with animals.</td></tr>
+    <tr><td><code>/z/[zoo]/animals/[slug]</code></td><td>Animal</td><td>Facts, conservation status, "part of these quests."</td></tr>
+    <tr><td><code>/z/[zoo]/profile</code></td><td>Explorer Profile</td><td>Level ring, XP, stats, badge case, quest status.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Components</h3>
+  <div class="grid2">
+    <div class="card"><h4>Shell</h4><ul><li><code>AppShell</code> with <code>BottomNav</code> (Quest · Map · Profile) and a persistent <code>ScanFab</code></li><li><code>XPBar</code> (top, animates on change)</li><li><code>ZooTheme</code> provider (reads tenant colors, NEXT)</li></ul></div>
+    <div class="card"><h4>Quest</h4><ul><li><code>QuestCard</code>, <code>QuestProgressList</code></li><li><code>MissionCard</code> with <code>HintReveal</code></li><li><code>QuestCompleteScreen</code></li></ul></div>
+    <div class="card"><h4>Challenge (one per type)</h4><ul><li><code>ScanChallenge</code> (hunt + scavenger: instruction + Scan button)</li><li><code>ChoiceChallenge</code> (who am I + conservation: <code>AnswerGrid</code>)</li><li><code>ObservationChallenge</code> (<code>CountdownTimer</code> then <code>AnswerGrid</code>)</li><li><code>PhotoChallenge</code> (instruction + Done)</li></ul></div>
+    <div class="card"><h4>Feedback</h4><ul><li><code>SuccessSequence</code>: orchestrates <code>XPCounter</code> → <code>FactCard</code> → <code>BadgeUnlock</code> → <code>LevelUp</code></li><li><code>ConfettiCanvas</code> (Canvas, not DOM)</li><li><code>Toast</code> for "Saving..." and errors</li></ul></div>
+    <div class="card"><h4>World</h4><ul><li><code>ZooMap</code> with <code>MapPin</code> (discovered / undiscovered / active)</li><li><code>ExhibitSheet</code>, <code>AnimalCard</code>, <code>ConservationBadge</code> (IUCN)</li></ul></div>
+    <div class="card"><h4>Profile</h4><ul><li><code>LevelRing</code>, <code>StatTile</code></li><li><code>BadgeGrid</code>, <code>BadgeDetail</code> (with progress hint)</li></ul></div>
+  </div>
+
+  <h3>State management</h3>
+  <p>Two layers, deliberately small. <strong>TanStack Query</strong> owns everything that comes from the server (profile, quests, map) with cache keys per zoo and per session; mutations like <code>scan</code> and <code>submit</code> update the profile cache from their response so the XP bar moves without a refetch. A tiny <strong>Zustand</strong> store owns the three things that are client-only: the guest token, the last result to celebrate (handed to the Success screen), and UI flags like "hint revealed." No Redux, no context spaghetti.</p>
+
+  <h3>API communication</h3>
+  <p>One <code>api.ts</code> wrapper around <code>fetch</code>: sets the base URL, attaches <code>X-Guest-Token</code>, parses errors into a typed <code>ApiError</code>, and retries idempotent POSTs (scan, start, submit) up to three times with backoff. Types are generated from the DRF OpenAPI schema (<code>drf-spectacular</code> → <code>openapi-typescript</code>) so the frontend cannot drift from the backend silently.</p>
+
+  <h3>QR scanning</h3>
+  <ul class="tight">
+    <li><strong>Primary:</strong> the phone's camera app reads the marker URL. Zero code on our side beyond the <code>/s/[code]</code> route.</li>
+    <li><strong>Secondary:</strong> in-app scanner using the native <code>BarcodeDetector</code> API where available (Chrome on Android, recent Safari) and <code>@zxing/browser</code> as the fallback. Requests the camera only when the user taps Scan, never on load.</li>
+    <li><strong>Tertiary:</strong> "Type the code" field showing the printed short code. Saves the day when a lens is smudged or a permission is denied.</li>
+  </ul>
+
+  <h3>PWA considerations</h3>
+  <ul class="tight">
+    <li>Manifest with name, icons, <code>display: standalone</code>, theme color. Uses <a href="https://serwist.pages.dev/">Serwist</a> for the service worker (the maintained successor to next-pwa).</li>
+    <li>Precache the app shell and static assets; network-first for API with a short cache fallback for GET endpoints (map, quests) so the app still renders in a dead zone.</li>
+    <li>No install prompt during the visit (Section 0, problem 2). A quiet "Add to home screen to keep your badges" appears on the profile screen only.</li>
+    <li>Images: animal photos served resized (Next <code>&lt;Image&gt;</code>), map image cached after first load.</li>
+    <li>Performance budget: first meaningful render under 2 seconds on a mid-range Android over 4G. Measure with Lighthouse from milestone 2 onward.</li>
+  </ul>
+
+  <h3>Visual direction (for the design phase)</h3>
+  <p>Deep forest greens and night-sky navy as grounds, one warm signal color (ember amber) for XP and calls to action, off-white text. Condensed, confident display type for mission titles; a humanist sans for body. Photography-led cards, not illustrations. Motion budget: the success sequence gets the animation; everything else is instant. The target feeling is "expedition field kit," which an adult will hold without embarrassment and a nine-year-old will find exciting.</p>
+</section>
+
+<!-- ============ G. ADMIN ============ -->
+<section id="admin">
+  <p class="eyebrow">Section G</p>
+  <h2>Admin dashboard</h2>
+  <p class="lede">Django Admin, configured with care, is the MVP admin. It gets a zoo to a working, self-managed experience in week one and tells us what the custom admin needs to be.</p>
+
+  <h3>What staff can do in the MVP admin</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Area</th><th>Tools</th></tr></thead>
+    <tbody>
+    <tr><td>Exhibits</td><td>List with animal count and marker count. Inline animals. Map coordinates as two fields plus a live preview of the pin on the zoo map (small custom widget, worth the hour).</td></tr>
+    <tr><td>Animals</td><td>Filter by exhibit, status, tag. Fun facts as a JSON list widget. Image upload. Inline markers.</td></tr>
+    <tr><td>Markers (QR)</td><td>Auto-generated code on save (<code>ZOO-ANIMAL-001</code>), QR preview in the list, bulk action <strong>"Print QR sheet"</strong> that renders selected markers as a printable HTML page (one marker per half-page with the animal name and a short "Scan me" line). This is the field-test enabler.</td></tr>
+    <tr><td>Challenges</td><td>Type-aware form: choosing a type shows the right config fields (options and correct answer, timer, accepted markers). Validation runs the verifier's <code>validate_config()</code>. Filter by type, difficulty, quest.</td></tr>
+    <tr><td>Quests</td><td>Sortable inline of challenges (drag order), badge picker, active dates, featured toggle. A read-only "estimated minutes" computed from mission count.</td></tr>
+    <tr><td>Badges</td><td>Rule type picker with per-rule config form and a plain-English preview ("Earned when a session discovers 2 animals tagged reptile").</td></tr>
+    <tr><td>Levels &amp; XP</td><td>Levels as an editable table. Zoo settings (default XP values) on the Zoo page.</td></tr>
+    <tr><td>Analytics</td><td>A single custom admin view, <code>/admin/analytics/</code>: today / 7 days / 30 days with the counts from the brief (quest starts, completions, discoveries, scans, most and least completed challenges, most discovered animal, average XP, average session length). Plain tables, no chart library. Charts are NEXT.</td></tr>
+    <tr><td>Access</td><td>Staff see only their zoo's rows (admin querysets filtered by <code>StaffMembership</code>). Superuser sees all.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The custom admin <span class="pill next">NEXT</span></h3>
+  <p>When a real zoo is on board, the React admin replaces Django Admin screen by screen, highest-friction first (probably Quest building and the analytics dashboard). Same API (Section E), same permissions. Django Admin stays as the superuser back office forever; that is what it is good at.</p>
+</section>
+
+<!-- ============ H. ROADMAP ============ -->
+<section id="roadmap">
+  <p class="eyebrow">Section H</p>
+  <h2>Development roadmap</h2>
+  <p class="lede">Seven milestones, each small enough to finish in a few focused sessions, each ending with something you can click. Estimates assume evenings and weekends.</p>
+
+  <div class="phase"><div class="ph"><span class="m">M0</span><h4>Foundation</h4><span class="est">1 weekend</span></div>
+    <p>Monorepo (<code>apps/api</code>, <code>apps/web</code>), Docker Compose for Postgres, Django project with the four apps and settings split (local / production), Next.js project with Tailwind, TypeScript and the route skeleton, GitHub Actions running tests and lint, deploy both to Railway and Vercel with a hello-world endpoint.</p>
+    <div class="done"><b>Done when:</b> the live URL shows "Zoo Quest" and <code>/api/v1/health/</code> returns 200 from production.</div></div>
+
+  <div class="phase"><div class="ph"><span class="m">M1</span><h4>Content backbone</h4><span class="est">1 week</span></div>
+    <p>All <code>tenants</code> and <code>content</code> models and migrations. Django Admin registered and themed, type-aware challenge form. Load the Cedar Hollow fixture. Read-only endpoints: quests, quest detail, map, animals. QR sheet print action.</p>
+    <div class="done"><b>Done when:</b> you can edit Cedar Hollow in the admin, hit the quest list from the browser, and print a sheet of 11 QR codes.</div></div>
+
+  <div class="phase"><div class="ph"><span class="m">M2</span><h4>Scan loop</h4><span class="est">1 week</span></div>
+    <p><code>play</code> models, guest token auth, <code>POST /sessions</code>, <code>POST /scan</code> with the scan resolver, XP ledger, <code>GET /me</code>. Frontend: <code>/s/[code]</code> landing, Welcome, a first-cut Success screen, Profile with XP and discovered animals. Unit tests on the resolver (new, repeat, inactive, wrong zoo).</p>
+    <div class="done"><b>Done when:</b> scanning printed markers with a real phone awards XP once per animal and the profile updates. <em>This is the first moment the product exists.</em></div></div>
+
+  <div class="phase"><div class="ph"><span class="m">M3</span><h4>Quests and challenges</h4><span class="est">1 to 2 weeks</span></div>
+    <p>Quest start / progress / completion, the six verifier classes, <code>submit</code> and <code>hint</code> endpoints, quest completion XP. Frontend: Choose Adventure, Active Quest, the four challenge components, Quest Complete screen. Tests for every verifier including wrong answers and repeat submissions.</p>
+    <div class="done"><b>Done when:</b> you can complete Savanna Safari end to end on a phone using the printed markers around your house.</div></div>
+
+  <div class="phase"><div class="ph"><span class="m">M4</span><h4>Progression</h4><span class="est">1 week</span></div>
+    <p>Levels, badge rule engine (six rule types), <code>BadgeAward</code>, badges endpoint. Frontend: full Success sequence (XP counter, fact, badge unlock, level up), badge case on Profile, Map with discovered pins and active mission highlight, animal detail.</p>
+    <div class="done"><b>Done when:</b> finishing a quest unlocks its badge with a celebration and the map shows where you have not been.</div></div>
+
+  <div class="phase"><div class="ph"><span class="m">M5</span><h4>Hardening and analytics</h4><span class="est">1 week</span></div>
+    <p>Service worker and manifest, retry and "Saving..." states, throttling, analytics events from the client, the admin analytics view, Lighthouse pass, contrast and tap-target audit in sunlight (literally: take it outside). Error pages that make sense to a parent.</p>
+    <div class="done"><b>Done when:</b> the app survives airplane mode toggled mid-scan and the analytics view shows your own test sessions.</div></div>
+
+  <div class="phase"><div class="ph"><span class="m">M6</span><h4>Field test</h4><span class="est">1 day + review</span></div>
+    <p>Print Cedar Hollow markers, place them around a park or a real zoo with permission, run three to five families through it, watch silently, then read the analytics. Write down what confused people and what made a kid run. Decide the NEXT list from evidence, not from the brief.</p>
+    <div class="done"><b>Done when:</b> you can answer the MVP question with something other than a guess.</div></div>
+
+  <div class="note">
+    <span class="lbl">Order matters</span>
+    <p>M2 before M3 is the important call. The scan loop alone (walk, scan, discover, XP) is a playable toy. If that is not fun on its own, quests will not save it, and you will have learned that in two weeks instead of six.</p>
+  </div>
+</section>
+
+<!-- ============ I. DATA ============ -->
+<section id="data">
+  <p class="eyebrow">Section I</p>
+  <h2>Prototype data: Cedar Hollow Zoo</h2>
+  <p class="lede">A fictional mid-size zoo with five zones, ten animals, eleven markers, twenty challenges, three quests and eight badges. Delivered as a Django fixture (<code>cedar_hollow_seed.json</code>) that loads with <code>python manage.py loaddata cedar_hollow_seed</code> once the M1 models exist. Every cross-reference was validated by the script that generated it.</p>
+
+  <h3>Zones and animals</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Exhibit</th><th>Animals</th><th>Marker codes</th></tr></thead>
+    <tbody>
+    <tr><td>Base Camp</td><td>(entrance, Conservation Station)</td><td><code>CHZ-BASECAMP-001</code></td></tr>
+    <tr><td>African Savanna</td><td>🦒 Giraffe (EN) · 🐘 African Elephant (EN) · 🦓 Plains Zebra (NT) · 🦁 African Lion (VU)</td><td><code>CHZ-GIRAFFE-001</code> <code>CHZ-ELEPHANT-001</code> <code>CHZ-ZEBRA-001</code> <code>CHZ-LION-001</code></td></tr>
+    <tr><td>Rainforest Trail</td><td>🐒 Squirrel Monkey (LC) · 🦜 Scarlet Macaw (LC) · 🦥 Two-toed Sloth (LC)</td><td><code>CHZ-SQUIRRELMONKEY-001</code> <code>CHZ-SCARLETMACAW-001</code> <code>CHZ-SLOTH-001</code></td></tr>
+    <tr><td>Reptile House</td><td>🐍 Burmese Python (VU) · 🐢 Galápagos Tortoise (VU)</td><td><code>CHZ-BURMESEPYTHON-001</code> <code>CHZ-TORTOISE-001</code></td></tr>
+    <tr><td>Wild North</td><td>🐺 Red Wolf (CR)</td><td><code>CHZ-REDWOLF-001</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>Each animal carries three fun facts, a conservation note written for a nine-year-old, an IUCN status, and tags (<code>africa</code>, <code>reptile</code>, <code>stripes</code>...) that badge rules and scavenger clues key off.</p>
+
+  <h3>Quests</h3>
+  <div class="grid2">
+    <div class="card"><h4>Savanna Safari <span class="pill mvp">featured</span></h4><p>6 missions · badge Savanna Scout · about 55 min</p><ul><li>Find a Giraffe (hunt)</li><li>Who Am I? giraffe riddle</li><li>Watch the Giraffes (30 s observation)</li><li>Find an Elephant (hunt)</li><li>Ecosystem Engineers (conservation)</li><li>Find the Lion (hunt, final)</li></ul></div>
+    <div class="card"><h4>Rainforest Adventure <span class="pill mvp">featured</span></h4><p>5 missions · badge Rainforest Explorer · about 50 min</p><ul><li>Find a Monkey (hunt)</li><li>Find a Colorful Bird (scavenger)</li><li>Find a Reptile (scavenger, 2 valid markers)</li><li>Sloth Watch (observation)</li><li>Wild, Not Pets (conservation, final)</li></ul></div>
+    <div class="card"><h4>Wildlife Detective</h4><p>6 missions · badge Master Detective · about 55 min · zoo-wide</p><ul><li>Who Am I? elephant</li><li>Something With Stripes (scavenger)</li><li>Who Am I? python (hard)</li><li>Older Than Your Grandparents (scavenger)</li><li>The Rarest Wolf (conservation, hard)</li><li>Photo Safari: Snack Time (photo, final)</li></ul></div>
+  </div>
+  <p>Three challenges are not in any quest (Hanging Around, Monkey Count, Photo Safari: Team Photo). They are available in free roam and give the admin something to drag into a fourth quest.</p>
+
+  <h3>Challenge mix</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Type</th><th class="num">Count</th><th>Verification</th><th>XP (easy / medium / hard)</th></tr></thead>
+    <tbody>
+    <tr><td>Animal Hunt</td><td class="num">4</td><td>Scan of the named animal's marker</td><td>50 / 100 / 250</td></tr>
+    <tr><td>Scavenger Hunt</td><td class="num">5</td><td>Scan of any accepted marker</td><td>50 / 100 / 250</td></tr>
+    <tr><td>Who Am I?</td><td class="num">3</td><td>Multiple choice, one correct</td><td>50 / 100 / 250</td></tr>
+    <tr><td>Observation</td><td class="num">3</td><td>30-second timer, any answer completes</td><td>50 / 100</td></tr>
+    <tr><td>Photo</td><td class="num">2</td><td>Self-report (Done)</td><td>50</td></tr>
+    <tr><td>Conservation</td><td class="num">3</td><td>Multiple choice with explanation</td><td>100 / 250</td></tr>
+    </tbody>
+  </table></div>
+  <p>Discovery XP is 100 per new animal and quest completion is 500, both set in <code>Zoo.settings</code>. A family that finishes Savanna Safari alone earns about 1,400 XP: three discoveries (300), six missions (450), the quest bonus (500) and three badges (150), landing them at level 3, Wildlife Detective. That pacing is a guess to be tuned from field data.</p>
+
+  <h3>Badges</h3>
+  <div class="badges">
+    <div class="badge"><div class="ic">🧭</div><div class="nm">First Steps</div><div class="rq">First marker scanned</div></div>
+    <div class="badge"><div class="ic">🦒</div><div class="nm">Giraffe Spotter</div><div class="rq">Discover the giraffe</div></div>
+    <div class="badge"><div class="ic">🌅</div><div class="nm">Savanna Scout</div><div class="rq">Complete Savanna Safari</div></div>
+    <div class="badge"><div class="ic">🌳</div><div class="nm">Rainforest Explorer</div><div class="rq">Complete Rainforest Adventure</div></div>
+    <div class="badge"><div class="ic">🔍</div><div class="nm">Master Detective</div><div class="rq">Complete Wildlife Detective</div></div>
+    <div class="badge"><div class="ic">🐍</div><div class="nm">Reptile Ranger</div><div class="rq">Discover 2 animals tagged reptile</div></div>
+    <div class="badge"><div class="ic">🌎</div><div class="nm">Conservation Hero</div><div class="rq">3 conservation challenges</div></div>
+    <div class="badge"><div class="ic">🗺️</div><div class="nm">Zoo Cartographer</div><div class="rq">Secret · scan in all 5 zones</div></div>
+  </div>
+
+  <h3>Levels</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th class="num">Level</th><th>Title</th><th class="num">XP required</th></tr></thead>
+    <tbody>
+    <tr><td class="num">1</td><td>Zoo Rookie</td><td class="num">0</td></tr>
+    <tr><td class="num">2</td><td>Animal Explorer</td><td class="num">300</td></tr>
+    <tr><td class="num">3</td><td>Wildlife Detective</td><td class="num">800</td></tr>
+    <tr><td class="num">4</td><td>Conservation Ranger</td><td class="num">1,500</td></tr>
+    <tr><td class="num">5</td><td>Zoo Master</td><td class="num">2,500</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <p>Zoo Quest Blueprint v0.1. Next step: approve or amend Section 0's six decisions, then start M0. Everything else in this document is a consequence of those six.</p>
+</footer>
+</main>
+</div>

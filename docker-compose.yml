@@ -1,0 +1,20 @@
+# Local infrastructure only. The API and web app run on your machine with hot reload.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: zooquest
+      POSTGRES_PASSWORD: zooquest
+      POSTGRES_DB: zooquest
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zooquest"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

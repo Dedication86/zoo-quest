@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/*
+  Zoo Quest design tokens (Blueprint, Section F "Visual direction").
+  Deep forest grounds, one warm signal color for XP and primary actions.
+  These are the only colors components may use. Zoo branding overrides
+  arrive in NEXT via a ZooTheme provider that rewrites --brand-*.
+*/
+@theme {
+  --color-night: #0b1a14;        /* page ground */
+  --color-canopy: #12261d;       /* cards, sheets */
+  --color-canopy-2: #1b3529;     /* raised surfaces */
+  --color-moss: #3f8a63;         /* secondary accent, success */
+  --color-moss-soft: #1f4a35;
+  --color-ember: #f0963a;        /* XP, primary action */
+  --color-ember-deep: #c96f16;
+  --color-sand: #f2ede2;         /* primary text */
+  --color-sand-dim: #b8b3a6;     /* secondary text */
+  --color-line: #27473a;
+
+  --font-display: var(--font-barlow), "Arial Narrow", sans-serif;
+  --font-body: var(--font-source), system-ui, sans-serif;
+
+  --radius-card: 18px;
+}
+
+html { background: var(--color-night); }
+body {
+  color: var(--color-sand);
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100dvh;
+}
+h1, h2, h3, .display { font-family: var(--font-display); letter-spacing: 0.01em; text-wrap: balance; }
+
+/* Big, sunlight-proof tap targets (Blueprint, Section 22 UX principles) */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-2xl px-6 font-display text-xl font-semibold uppercase tracking-wide;
+  min-height: 56px;
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { @apply bg-ember text-night; }
+.btn-primary:hover { @apply bg-ember-deep; }
+.btn-secondary { @apply bg-canopy-2 text-sand border border-line; }
+.btn:focus-visible { outline: 3px solid var(--color-ember); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

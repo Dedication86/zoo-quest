@@ -1,0 +1,1437 @@
+[
+  {
+    "model": "tenants.zoo",
+    "pk": 1,
+    "fields": {
+      "name": "Cedar Hollow Zoo",
+      "slug": "cedar-hollow",
+      "timezone": "America/Chicago",
+      "primary_color": "#2F6B4F",
+      "is_active": true,
+      "settings": {
+        "discovery_xp": 100,
+        "quest_complete_xp": 500,
+        "xp_by_difficulty": {
+          "easy": 50,
+          "medium": 100,
+          "hard": 250
+        },
+        "repeat_scan_cooldown_minutes": 1440
+      }
+    }
+  },
+  {
+    "model": "content.level",
+    "pk": 1,
+    "fields": {
+      "zoo": 1,
+      "number": 1,
+      "title": "Zoo Rookie",
+      "xp_required": 0
+    }
+  },
+  {
+    "model": "content.level",
+    "pk": 2,
+    "fields": {
+      "zoo": 1,
+      "number": 2,
+      "title": "Animal Explorer",
+      "xp_required": 300
+    }
+  },
+  {
+    "model": "content.level",
+    "pk": 3,
+    "fields": {
+      "zoo": 1,
+      "number": 3,
+      "title": "Wildlife Detective",
+      "xp_required": 800
+    }
+  },
+  {
+    "model": "content.level",
+    "pk": 4,
+    "fields": {
+      "zoo": 1,
+      "number": 4,
+      "title": "Conservation Ranger",
+      "xp_required": 1500
+    }
+  },
+  {
+    "model": "content.level",
+    "pk": 5,
+    "fields": {
+      "zoo": 1,
+      "number": 5,
+      "title": "Zoo Master",
+      "xp_required": 2500
+    }
+  },
+  {
+    "model": "content.exhibit",
+    "pk": 1,
+    "fields": {
+      "zoo": 1,
+      "slug": "base-camp",
+      "name": "Base Camp",
+      "description": "Zoo entrance plaza and Conservation Station. Every adventure starts here.",
+      "map_x": 50,
+      "map_y": 92,
+      "sort_order": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.exhibit",
+    "pk": 2,
+    "fields": {
+      "zoo": 1,
+      "slug": "african-savanna",
+      "name": "African Savanna",
+      "description": "Open grasslands where giraffes, zebras and elephants roam in view of the lion ridge.",
+      "map_x": 22,
+      "map_y": 30,
+      "sort_order": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.exhibit",
+    "pk": 3,
+    "fields": {
+      "zoo": 1,
+      "slug": "rainforest-trail",
+      "name": "Rainforest Trail",
+      "description": "A shaded canopy walk full of monkeys, macaws and one very slow sloth.",
+      "map_x": 72,
+      "map_y": 28,
+      "sort_order": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.exhibit",
+    "pk": 4,
+    "fields": {
+      "zoo": 1,
+      "slug": "reptile-house",
+      "name": "Reptile House",
+      "description": "Cool, dim and quiet. Home to the zoo's oldest resident.",
+      "map_x": 78,
+      "map_y": 62,
+      "sort_order": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.exhibit",
+    "pk": 5,
+    "fields": {
+      "zoo": 1,
+      "slug": "wild-north",
+      "name": "Wild North",
+      "description": "Pine woodland habitat for red wolves and other North American natives.",
+      "map_x": 24,
+      "map_y": 66,
+      "sort_order": 5,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 1,
+    "fields": {
+      "zoo": 1,
+      "slug": "giraffe",
+      "name": "Giraffe",
+      "species": "Reticulated giraffe",
+      "scientific_name": "Giraffa reticulata",
+      "exhibit": 2,
+      "emoji": "🦒",
+      "conservation_status": "EN",
+      "tags": [
+        "africa",
+        "mammal",
+        "herbivore",
+        "tall",
+        "spots"
+      ],
+      "fun_facts": [
+        "A giraffe's tongue is about 18 inches long and dark purple to protect it from sunburn.",
+        "Giraffes only need 5 to 30 minutes of sleep a day.",
+        "Every giraffe has a unique spot pattern, like a fingerprint."
+      ],
+      "description": "Giraffe at African Savanna.",
+      "conservation_info": "Giraffe numbers have dropped about 40% in 30 years, mostly from habitat loss and poaching.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 2,
+    "fields": {
+      "zoo": 1,
+      "slug": "elephant",
+      "name": "African Elephant",
+      "species": "African savanna elephant",
+      "scientific_name": "Loxodonta africana",
+      "exhibit": 2,
+      "emoji": "🐘",
+      "conservation_status": "EN",
+      "tags": [
+        "africa",
+        "mammal",
+        "herbivore",
+        "big-ears",
+        "trunk",
+        "heavy"
+      ],
+      "fun_facts": [
+        "An elephant's trunk has about 40,000 muscles. Your whole body has around 600.",
+        "Elephants can recognize themselves in a mirror.",
+        "They dig water holes in dry riverbeds that other animals rely on."
+      ],
+      "description": "African Elephant at African Savanna.",
+      "conservation_info": "Elephants are 'ecosystem engineers': they spread seeds, open paths through brush and create water sources for dozens of other species.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 3,
+    "fields": {
+      "zoo": 1,
+      "slug": "zebra",
+      "name": "Plains Zebra",
+      "species": "Plains zebra",
+      "scientific_name": "Equus quagga",
+      "exhibit": 2,
+      "emoji": "🦓",
+      "conservation_status": "NT",
+      "tags": [
+        "africa",
+        "mammal",
+        "herbivore",
+        "stripes"
+      ],
+      "fun_facts": [
+        "No two zebras have the same stripe pattern.",
+        "Stripes may confuse biting flies and help zebras keep cool.",
+        "Zebras sleep standing up."
+      ],
+      "description": "Plains Zebra at African Savanna.",
+      "conservation_info": "Plains zebras are still widespread but fenced migration routes are shrinking their range.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 4,
+    "fields": {
+      "zoo": 1,
+      "slug": "lion",
+      "name": "African Lion",
+      "species": "African lion",
+      "scientific_name": "Panthera leo",
+      "exhibit": 2,
+      "emoji": "🦁",
+      "conservation_status": "VU",
+      "tags": [
+        "africa",
+        "mammal",
+        "carnivore",
+        "big-cat",
+        "mane"
+      ],
+      "fun_facts": [
+        "A lion's roar can be heard from 5 miles away.",
+        "Lions rest up to 20 hours a day.",
+        "Lionesses do most of the hunting, usually as a team."
+      ],
+      "description": "African Lion at African Savanna.",
+      "conservation_info": "Wild lions have lost about 90% of their historic range. Fewer than 25,000 remain in Africa.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 5,
+    "fields": {
+      "zoo": 1,
+      "slug": "squirrel-monkey",
+      "name": "Squirrel Monkey",
+      "species": "Common squirrel monkey",
+      "scientific_name": "Saimiri sciureus",
+      "exhibit": 3,
+      "emoji": "🐒",
+      "conservation_status": "LC",
+      "tags": [
+        "south-america",
+        "mammal",
+        "primate",
+        "rainforest",
+        "tail"
+      ],
+      "fun_facts": [
+        "Squirrel monkeys live in troops of up to 300.",
+        "They use their tails for balance, not for hanging.",
+        "Their brain is huge for their body size."
+      ],
+      "description": "Squirrel Monkey at Rainforest Trail.",
+      "conservation_info": "Rainforest clearing for farming is the biggest threat to squirrel monkey habitat.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 6,
+    "fields": {
+      "zoo": 1,
+      "slug": "scarlet-macaw",
+      "name": "Scarlet Macaw",
+      "species": "Scarlet macaw",
+      "scientific_name": "Ara macao",
+      "exhibit": 3,
+      "emoji": "🦜",
+      "conservation_status": "LC",
+      "tags": [
+        "south-america",
+        "bird",
+        "rainforest",
+        "colorful",
+        "red"
+      ],
+      "fun_facts": [
+        "Scarlet macaws can live 50 years or more.",
+        "They mate for life and are often seen flying in pairs.",
+        "Their beak is strong enough to crack a Brazil nut."
+      ],
+      "description": "Scarlet Macaw at Rainforest Trail.",
+      "conservation_info": "Macaws are heavily targeted by the illegal pet trade. Never buy a wild-caught parrot.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 7,
+    "fields": {
+      "zoo": 1,
+      "slug": "sloth",
+      "name": "Two-toed Sloth",
+      "species": "Linnaeus's two-toed sloth",
+      "scientific_name": "Choloepus didactylus",
+      "exhibit": 3,
+      "emoji": "🦥",
+      "conservation_status": "LC",
+      "tags": [
+        "south-america",
+        "mammal",
+        "rainforest",
+        "slow",
+        "upside-down",
+        "nocturnal"
+      ],
+      "fun_facts": [
+        "Sloths move so slowly that algae grows on their fur, turning them green.",
+        "A sloth only climbs down from its tree about once a week.",
+        "They can turn their heads almost all the way around."
+      ],
+      "description": "Two-toed Sloth at Rainforest Trail.",
+      "conservation_info": "Sloths need connected forest canopy. Roads and power lines are a major danger to them.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 8,
+    "fields": {
+      "zoo": 1,
+      "slug": "burmese-python",
+      "name": "Burmese Python",
+      "species": "Burmese python",
+      "scientific_name": "Python bivittatus",
+      "exhibit": 4,
+      "emoji": "🐍",
+      "conservation_status": "VU",
+      "tags": [
+        "asia",
+        "reptile",
+        "snake",
+        "long",
+        "no-legs"
+      ],
+      "fun_facts": [
+        "Burmese pythons can grow longer than a pickup truck.",
+        "They swallow prey whole and can go months between meals.",
+        "They sense heat with special pits along their lips."
+      ],
+      "description": "Burmese Python at Reptile House.",
+      "conservation_info": "In Asia, Burmese pythons are threatened by hunting for skins. In Florida they are an invasive species released by pet owners.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 9,
+    "fields": {
+      "zoo": 1,
+      "slug": "tortoise",
+      "name": "Galápagos Tortoise",
+      "species": "Galápagos giant tortoise",
+      "scientific_name": "Chelonoidis niger",
+      "exhibit": 4,
+      "emoji": "🐢",
+      "conservation_status": "VU",
+      "tags": [
+        "islands",
+        "reptile",
+        "shell",
+        "old",
+        "slow"
+      ],
+      "fun_facts": [
+        "Galápagos tortoises can live more than 100 years.",
+        "They can weigh over 500 pounds.",
+        "They can survive a year without food or water."
+      ],
+      "description": "Galápagos Tortoise at Reptile House.",
+      "conservation_info": "Whalers once took thousands of tortoises for food. Breeding programs have brought some island populations back from just a dozen animals.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.animal",
+    "pk": 10,
+    "fields": {
+      "zoo": 1,
+      "slug": "red-wolf",
+      "name": "Red Wolf",
+      "species": "Red wolf",
+      "scientific_name": "Canis rufus",
+      "exhibit": 5,
+      "emoji": "🐺",
+      "conservation_status": "CR",
+      "tags": [
+        "north-america",
+        "mammal",
+        "carnivore",
+        "pack",
+        "endangered"
+      ],
+      "fun_facts": [
+        "Red wolves are found only in the United States.",
+        "They live in small family packs and hunt mostly at night.",
+        "Pups are born in the spring, usually four to six at a time."
+      ],
+      "description": "Red Wolf at Wild North.",
+      "conservation_info": "The red wolf is one of the most endangered animals on Earth. Only a few dozen live in the wild, all in North Carolina. Zoo breeding programs are keeping the species alive.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 1,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-BASECAMP-001",
+      "exhibit": 1,
+      "animal": null,
+      "label": "Base Camp welcome sign",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 2,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-GIRAFFE-001",
+      "exhibit": 2,
+      "animal": 1,
+      "label": "Giraffe viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 3,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-ELEPHANT-001",
+      "exhibit": 2,
+      "animal": 2,
+      "label": "African Elephant viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 4,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-ZEBRA-001",
+      "exhibit": 2,
+      "animal": 3,
+      "label": "Plains Zebra viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 5,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-LION-001",
+      "exhibit": 2,
+      "animal": 4,
+      "label": "African Lion viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 6,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-SQUIRRELMONKEY-001",
+      "exhibit": 3,
+      "animal": 5,
+      "label": "Squirrel Monkey viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 7,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-SCARLETMACAW-001",
+      "exhibit": 3,
+      "animal": 6,
+      "label": "Scarlet Macaw viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 8,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-SLOTH-001",
+      "exhibit": 3,
+      "animal": 7,
+      "label": "Two-toed Sloth viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 9,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-BURMESEPYTHON-001",
+      "exhibit": 4,
+      "animal": 8,
+      "label": "Burmese Python viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 10,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-TORTOISE-001",
+      "exhibit": 4,
+      "animal": 9,
+      "label": "Galápagos Tortoise viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.marker",
+    "pk": 11,
+    "fields": {
+      "zoo": 1,
+      "code": "CHZ-REDWOLF-001",
+      "exhibit": 5,
+      "animal": 10,
+      "label": "Red Wolf viewing rail",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 1,
+    "fields": {
+      "zoo": 1,
+      "slug": "find-giraffe",
+      "title": "Find a Giraffe",
+      "challenge_type": "animal_hunt",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Head to the African Savanna and find the tallest animal in the zoo. Scan the quest marker at its viewing rail.",
+      "hint": "Look up. Way up.",
+      "animal": 1,
+      "exhibit": null,
+      "accept_markers": [
+        2
+      ],
+      "config": {},
+      "explanation": "Giraffes are the tallest land animals on Earth. Adults can reach 18 feet.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 2,
+    "fields": {
+      "zoo": 1,
+      "slug": "find-elephant",
+      "title": "Find an Elephant",
+      "challenge_type": "animal_hunt",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Find the heaviest animal in the Savanna and scan its marker.",
+      "hint": "Follow the sound of splashing water.",
+      "animal": 2,
+      "exhibit": null,
+      "accept_markers": [
+        3
+      ],
+      "config": {},
+      "explanation": "An adult African elephant can weigh as much as four cars.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 3,
+    "fields": {
+      "zoo": 1,
+      "slug": "find-lion",
+      "title": "Find the Lion",
+      "challenge_type": "animal_hunt",
+      "difficulty": "medium",
+      "xp_reward": 100,
+      "prompt": "The king of the Savanna is watching from the ridge. Find the lion and scan the marker.",
+      "hint": "Look for the rocky high ground at the far end of the Savanna.",
+      "animal": 4,
+      "exhibit": null,
+      "accept_markers": [
+        5
+      ],
+      "config": {},
+      "explanation": "Lions are the only cats that live in family groups, called prides.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 4,
+    "fields": {
+      "zoo": 1,
+      "slug": "find-monkey",
+      "title": "Find a Monkey",
+      "challenge_type": "animal_hunt",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Somewhere on the Rainforest Trail a troop of monkeys is causing trouble. Find them and scan the marker.",
+      "hint": "Listen for chattering in the treetops.",
+      "animal": 5,
+      "exhibit": null,
+      "accept_markers": [
+        6
+      ],
+      "config": {},
+      "explanation": "Squirrel monkeys are some of the smallest monkeys in the Americas, about the size of a squirrel.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 5,
+    "fields": {
+      "zoo": 1,
+      "slug": "stripes",
+      "title": "Something With Stripes",
+      "challenge_type": "scavenger",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Find an animal with black and white stripes and scan its marker.",
+      "hint": "It's a relative of the horse.",
+      "animal": null,
+      "exhibit": null,
+      "accept_markers": [
+        4
+      ],
+      "config": {},
+      "explanation": "Scientists think zebra stripes confuse biting flies, which struggle to land on striped surfaces.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 6,
+    "fields": {
+      "zoo": 1,
+      "slug": "upside-down",
+      "title": "Hanging Around",
+      "challenge_type": "scavenger",
+      "difficulty": "medium",
+      "xp_reward": 100,
+      "prompt": "Find an animal that spends most of its life hanging upside down. Scan its marker.",
+      "hint": "It's on the Rainforest Trail, and it is in no hurry.",
+      "animal": null,
+      "exhibit": null,
+      "accept_markers": [
+        8
+      ],
+      "config": {},
+      "explanation": "Sloths hang upside down so much that their fur grows away from their belly, so rain runs off.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 7,
+    "fields": {
+      "zoo": 1,
+      "slug": "hundred-years",
+      "title": "Older Than Your Grandparents",
+      "challenge_type": "scavenger",
+      "difficulty": "medium",
+      "xp_reward": 100,
+      "prompt": "Find an animal that can live more than 100 years. Scan its marker.",
+      "hint": "Slow and steady. Check the Reptile House.",
+      "animal": null,
+      "exhibit": null,
+      "accept_markers": [
+        10
+      ],
+      "config": {},
+      "explanation": "Some Galápagos tortoises alive today were born before cars were invented.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 8,
+    "fields": {
+      "zoo": 1,
+      "slug": "colorful-bird",
+      "title": "Find a Colorful Bird",
+      "challenge_type": "scavenger",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Find the brightest bird on the Rainforest Trail and scan its marker.",
+      "hint": "Red, yellow and blue. Loud, too.",
+      "animal": null,
+      "exhibit": null,
+      "accept_markers": [
+        7
+      ],
+      "config": {},
+      "explanation": "Bright colors help macaws find each other in the dense green canopy.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 9,
+    "fields": {
+      "zoo": 1,
+      "slug": "find-reptile",
+      "title": "Find a Reptile",
+      "challenge_type": "scavenger",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Find any reptile in the zoo and scan its marker.",
+      "hint": "The Reptile House is a good bet.",
+      "animal": null,
+      "exhibit": null,
+      "accept_markers": [
+        9,
+        10
+      ],
+      "config": {},
+      "explanation": "Reptiles are cold-blooded, so they use the sun or warm rocks to control their body temperature.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 10,
+    "fields": {
+      "zoo": 1,
+      "slug": "who-elephant",
+      "title": "Who Am I?",
+      "challenge_type": "who_am_i",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "I weigh more than a car. I have huge ears. I use my nose like a hand. Who am I?",
+      "hint": null,
+      "animal": 2,
+      "exhibit": null,
+      "accept_markers": [],
+      "config": {
+        "options": [
+          "Elephant",
+          "Rhino",
+          "Hippo",
+          "Giraffe"
+        ],
+        "correct": "Elephant"
+      },
+      "explanation": "Elephants use their trunks to drink, grab food, greet friends and even snorkel.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 11,
+    "fields": {
+      "zoo": 1,
+      "slug": "who-giraffe",
+      "title": "Who Am I?",
+      "challenge_type": "who_am_i",
+      "difficulty": "medium",
+      "xp_reward": 100,
+      "prompt": "My tongue is purple and longer than a ruler. I have a very long neck but the same number of neck bones as you. Who am I?",
+      "hint": null,
+      "animal": 1,
+      "exhibit": null,
+      "accept_markers": [],
+      "config": {
+        "options": [
+          "Ostrich",
+          "Giraffe",
+          "Zebra",
+          "Camel"
+        ],
+        "correct": "Giraffe"
+      },
+      "explanation": "Giraffes and humans both have seven neck bones. Each giraffe neck bone is about 10 inches long.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 12,
+    "fields": {
+      "zoo": 1,
+      "slug": "who-python",
+      "title": "Who Am I?",
+      "challenge_type": "who_am_i",
+      "difficulty": "hard",
+      "xp_reward": 250,
+      "prompt": "I have no legs but I can climb trees. I can go months without eating. I sense heat with my lips. Who am I?",
+      "hint": null,
+      "animal": 8,
+      "exhibit": null,
+      "accept_markers": [],
+      "config": {
+        "options": [
+          "Crocodile",
+          "Tortoise",
+          "Python",
+          "Lizard"
+        ],
+        "correct": "Python"
+      },
+      "explanation": "Pythons have heat-sensing pits on their lips that let them 'see' warm-blooded prey in the dark.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 13,
+    "fields": {
+      "zoo": 1,
+      "slug": "watch-giraffes",
+      "title": "Watch the Giraffes",
+      "challenge_type": "observation",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Stand at the giraffe rail and watch for 30 seconds. What are they doing?",
+      "hint": null,
+      "animal": 1,
+      "exhibit": 2,
+      "accept_markers": [],
+      "config": {
+        "timer_seconds": 30,
+        "options": [
+          "Eating",
+          "Walking",
+          "Resting",
+          "Drinking",
+          "Something else"
+        ],
+        "any_answer_correct": true
+      },
+      "explanation": "Giraffes eat up to 75 pounds of leaves a day, so 'eating' is the most common answer here.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 14,
+    "fields": {
+      "zoo": 1,
+      "slug": "count-monkeys",
+      "title": "Monkey Count",
+      "challenge_type": "observation",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Watch the squirrel monkeys for 30 seconds. How many can you count?",
+      "hint": null,
+      "animal": 5,
+      "exhibit": 3,
+      "accept_markers": [],
+      "config": {
+        "timer_seconds": 30,
+        "options": [
+          "1 to 3",
+          "4 to 6",
+          "7 or more",
+          "They're hiding!"
+        ],
+        "any_answer_correct": true
+      },
+      "explanation": "Squirrel monkeys are hard to count because they never stop moving. Zookeepers count them at feeding time.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 15,
+    "fields": {
+      "zoo": 1,
+      "slug": "sloth-watch",
+      "title": "Sloth Watch",
+      "challenge_type": "observation",
+      "difficulty": "medium",
+      "xp_reward": 100,
+      "prompt": "Find the sloth and watch it for 30 seconds. Did it move?",
+      "hint": null,
+      "animal": 7,
+      "exhibit": 3,
+      "accept_markers": [],
+      "config": {
+        "timer_seconds": 30,
+        "options": [
+          "Yes, a little",
+          "Yes, a lot",
+          "Not at all",
+          "I can't find it"
+        ],
+        "any_answer_correct": true
+      },
+      "explanation": "Sloths sleep 15 to 20 hours a day. Not moving is a completely normal sloth answer.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 16,
+    "fields": {
+      "zoo": 1,
+      "slug": "photo-eating",
+      "title": "Photo Safari: Snack Time",
+      "challenge_type": "photo",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Take a photo of any animal eating. Show your team, then tap Done.",
+      "hint": null,
+      "animal": null,
+      "exhibit": null,
+      "accept_markers": [],
+      "config": {
+        "verification": "self_report"
+      },
+      "explanation": "Zoo nutritionists plan every animal's meals. Elephants alone eat about 300 pounds of food a day.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 17,
+    "fields": {
+      "zoo": 1,
+      "slug": "photo-team-sign",
+      "title": "Photo Safari: Team Photo",
+      "challenge_type": "photo",
+      "difficulty": "easy",
+      "xp_reward": 50,
+      "prompt": "Take a team photo in front of the Base Camp sign to start your adventure.",
+      "hint": null,
+      "animal": null,
+      "exhibit": 1,
+      "accept_markers": [],
+      "config": {
+        "verification": "self_report"
+      },
+      "explanation": "Explorers always document the start of an expedition.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 18,
+    "fields": {
+      "zoo": 1,
+      "slug": "cons-elephant",
+      "title": "Ecosystem Engineers",
+      "challenge_type": "conservation",
+      "difficulty": "medium",
+      "xp_reward": 100,
+      "prompt": "Why are elephants so important to the animals around them?",
+      "hint": null,
+      "animal": 2,
+      "exhibit": null,
+      "accept_markers": [],
+      "config": {
+        "options": [
+          "They scare away predators",
+          "They dig water holes and spread seeds",
+          "They keep the grass short",
+          "They are the biggest"
+        ],
+        "correct": "They dig water holes and spread seeds"
+      },
+      "explanation": "Elephants dig for water in dry riverbeds and other animals drink there. Seeds pass through them and grow into new trees miles away.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 19,
+    "fields": {
+      "zoo": 1,
+      "slug": "cons-red-wolf",
+      "title": "The Rarest Wolf",
+      "challenge_type": "conservation",
+      "difficulty": "hard",
+      "xp_reward": 250,
+      "prompt": "About how many red wolves are left in the wild?",
+      "hint": null,
+      "animal": 10,
+      "exhibit": null,
+      "accept_markers": [],
+      "config": {
+        "options": [
+          "Fewer than 50",
+          "About 500",
+          "About 5,000",
+          "Over 50,000"
+        ],
+        "correct": "Fewer than 50"
+      },
+      "explanation": "Only a few dozen red wolves live in the wild, all in North Carolina. Zoos like this one breed red wolves to keep the species alive.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.challenge",
+    "pk": 20,
+    "fields": {
+      "zoo": 1,
+      "slug": "cons-macaw",
+      "title": "Wild, Not Pets",
+      "challenge_type": "conservation",
+      "difficulty": "medium",
+      "xp_reward": 100,
+      "prompt": "What is one of the biggest threats to wild scarlet macaws?",
+      "hint": null,
+      "animal": 6,
+      "exhibit": null,
+      "accept_markers": [],
+      "config": {
+        "options": [
+          "Being caught for the pet trade",
+          "Too much rain",
+          "Eating too many nuts",
+          "Eagles"
+        ],
+        "correct": "Being caught for the pet trade"
+      },
+      "explanation": "Thousands of parrots are taken from the wild every year to be sold as pets. Choosing captive-bred birds helps protect wild ones.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.badge",
+    "pk": 1,
+    "fields": {
+      "zoo": 1,
+      "slug": "first-steps",
+      "name": "First Steps",
+      "description": "Scanned your very first quest marker.",
+      "icon": "🧭",
+      "rule_type": "scan_count",
+      "rule_config": {
+        "count": 1
+      },
+      "xp_reward": 25,
+      "is_secret": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.badge",
+    "pk": 2,
+    "fields": {
+      "zoo": 1,
+      "slug": "giraffe-spotter",
+      "name": "Giraffe Spotter",
+      "description": "Discovered the giraffe.",
+      "icon": "🦒",
+      "rule_type": "discover_animal",
+      "rule_config": {
+        "animal_slugs": [
+          "giraffe"
+        ]
+      },
+      "xp_reward": 25,
+      "is_secret": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.badge",
+    "pk": 3,
+    "fields": {
+      "zoo": 1,
+      "slug": "savanna-scout",
+      "name": "Savanna Scout",
+      "description": "Completed the Savanna Safari quest.",
+      "icon": "🌅",
+      "rule_type": "quest_complete",
+      "rule_config": {
+        "quest_slug": "savanna-safari"
+      },
+      "xp_reward": 100,
+      "is_secret": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.badge",
+    "pk": 4,
+    "fields": {
+      "zoo": 1,
+      "slug": "rainforest-explorer",
+      "name": "Rainforest Explorer",
+      "description": "Completed the Rainforest Adventure quest.",
+      "icon": "🌳",
+      "rule_type": "quest_complete",
+      "rule_config": {
+        "quest_slug": "rainforest-adventure"
+      },
+      "xp_reward": 100,
+      "is_secret": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.badge",
+    "pk": 5,
+    "fields": {
+      "zoo": 1,
+      "slug": "master-detective",
+      "name": "Master Detective",
+      "description": "Completed the Wildlife Detective quest.",
+      "icon": "🔍",
+      "rule_type": "quest_complete",
+      "rule_config": {
+        "quest_slug": "wildlife-detective"
+      },
+      "xp_reward": 100,
+      "is_secret": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.badge",
+    "pk": 6,
+    "fields": {
+      "zoo": 1,
+      "slug": "reptile-ranger",
+      "name": "Reptile Ranger",
+      "description": "Discovered every reptile in the zoo.",
+      "icon": "🐍",
+      "rule_type": "discover_count",
+      "rule_config": {
+        "count": 2,
+        "tag": "reptile"
+      },
+      "xp_reward": 50,
+      "is_secret": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.badge",
+    "pk": 7,
+    "fields": {
+      "zoo": 1,
+      "slug": "conservation-hero",
+      "name": "Conservation Hero",
+      "description": "Completed 3 conservation challenges.",
+      "icon": "🌎",
+      "rule_type": "challenge_type_count",
+      "rule_config": {
+        "challenge_type": "conservation",
+        "count": 3
+      },
+      "xp_reward": 100,
+      "is_secret": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.badge",
+    "pk": 8,
+    "fields": {
+      "zoo": 1,
+      "slug": "cartographer",
+      "name": "Zoo Cartographer",
+      "description": "Scanned a marker in all 5 zones of the zoo.",
+      "icon": "🗺️",
+      "rule_type": "exhibit_count",
+      "rule_config": {
+        "count": 5
+      },
+      "xp_reward": 150,
+      "is_secret": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "content.quest",
+    "pk": 1,
+    "fields": {
+      "zoo": 1,
+      "slug": "savanna-safari",
+      "name": "Savanna Safari",
+      "description": "Track down the giants of the African Savanna, from the tallest to the loudest.",
+      "xp_reward": 500,
+      "badge": 3,
+      "is_active": true,
+      "is_featured": true,
+      "sort_order": 1,
+      "starts_at": null,
+      "ends_at": null,
+      "estimated_minutes": 55
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 1,
+    "fields": {
+      "quest": 1,
+      "challenge": 1,
+      "order": 1,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 2,
+    "fields": {
+      "quest": 1,
+      "challenge": 11,
+      "order": 2,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 3,
+    "fields": {
+      "quest": 1,
+      "challenge": 13,
+      "order": 3,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 4,
+    "fields": {
+      "quest": 1,
+      "challenge": 2,
+      "order": 4,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 5,
+    "fields": {
+      "quest": 1,
+      "challenge": 18,
+      "order": 5,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 6,
+    "fields": {
+      "quest": 1,
+      "challenge": 3,
+      "order": 6,
+      "is_final": true
+    }
+  },
+  {
+    "model": "content.quest",
+    "pk": 2,
+    "fields": {
+      "zoo": 1,
+      "slug": "rainforest-adventure",
+      "name": "Rainforest Adventure",
+      "description": "Follow the trail into the canopy. Something is moving up there. Slowly.",
+      "xp_reward": 500,
+      "badge": 4,
+      "is_active": true,
+      "is_featured": true,
+      "sort_order": 2,
+      "starts_at": null,
+      "ends_at": null,
+      "estimated_minutes": 50
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 7,
+    "fields": {
+      "quest": 2,
+      "challenge": 4,
+      "order": 1,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 8,
+    "fields": {
+      "quest": 2,
+      "challenge": 8,
+      "order": 2,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 9,
+    "fields": {
+      "quest": 2,
+      "challenge": 9,
+      "order": 3,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 10,
+    "fields": {
+      "quest": 2,
+      "challenge": 15,
+      "order": 4,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 11,
+    "fields": {
+      "quest": 2,
+      "challenge": 20,
+      "order": 5,
+      "is_final": true
+    }
+  },
+  {
+    "model": "content.quest",
+    "pk": 3,
+    "fields": {
+      "zoo": 1,
+      "slug": "wildlife-detective",
+      "name": "Wildlife Detective",
+      "description": "Riddles, clues and one very rare wolf. Can your team crack every case?",
+      "xp_reward": 500,
+      "badge": 5,
+      "is_active": true,
+      "is_featured": false,
+      "sort_order": 3,
+      "starts_at": null,
+      "ends_at": null,
+      "estimated_minutes": 55
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 12,
+    "fields": {
+      "quest": 3,
+      "challenge": 10,
+      "order": 1,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 13,
+    "fields": {
+      "quest": 3,
+      "challenge": 5,
+      "order": 2,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 14,
+    "fields": {
+      "quest": 3,
+      "challenge": 12,
+      "order": 3,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 15,
+    "fields": {
+      "quest": 3,
+      "challenge": 7,
+      "order": 4,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 16,
+    "fields": {
+      "quest": 3,
+      "challenge": 19,
+      "order": 5,
+      "is_final": false
+    }
+  },
+  {
+    "model": "content.questchallenge",
+    "pk": 17,
+    "fields": {
+      "quest": 3,
+      "challenge": 16,
+      "order": 6,
+      "is_final": true
+    }
+  }
+]
