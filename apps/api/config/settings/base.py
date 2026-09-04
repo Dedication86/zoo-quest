@@ -128,7 +128,10 @@ CORS_ALLOW_HEADERS = [
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser"],
-    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.SessionAuthentication"],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "apps.play.auth.GuestTokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_THROTTLE_CLASSES": ["rest_framework.throttling.AnonRateThrottle"],
@@ -200,6 +203,13 @@ UNFOLD = {
                     {"title": "Challenges", "icon": "flag", "link": "/admin/content/challenge/"},
                     {"title": "Quests", "icon": "explore", "link": "/admin/content/quest/"},
                     {"title": "Badges", "icon": "military_tech", "link": "/admin/content/badge/"},
+                ],
+            },
+            {
+                "title": "Visitors",
+                "items": [
+                    {"title": "Sessions", "icon": "groups", "link": "/admin/play/guestsession/"},
+                    {"title": "Scans", "icon": "qr_code_scanner", "link": "/admin/play/scan/"},
                 ],
             },
         ],

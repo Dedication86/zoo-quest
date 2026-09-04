@@ -66,7 +66,7 @@ Tests and lint: `make test`, `make lint`. CI runs the same on every push.
 
 - [x] **M0 Foundation** — this. Repo, settings split, four apps, health endpoint, route skeleton, CI, deploy configs.
 - [x] **M1 Content backbone** — models, Django Admin (Unfold), Cedar Hollow fixture, read-only endpoints, printable QR sheet.
-- [ ] **M2 Scan loop** — guest sessions, `POST /scan`, discovery XP, marker landing, Success, Profile.
+- [x] **M2 Scan loop** — guest sessions, `POST /scan`, discovery XP once per animal, level-ups, marker landing, Welcome, Success, Profile, Choose Adventure, in-app scanner.
 - [ ] **M3 Quests and challenges** — six verifiers, submit/hint, quest screens.
 - [ ] **M4 Progression** — levels, badge rule engine, full Success sequence, Map.
 - [ ] **M5 Hardening** — service worker, retries, throttling, analytics view.
