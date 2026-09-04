@@ -5,13 +5,19 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+import type { ScanResult } from "./api";
+
 type State = {
   guestToken: string | null;
   zooSlug: string | null;
-  /** The last scan/submit result, handed to the Success screen to celebrate. */
-  lastResult: unknown | null;
+  /** True once the persisted values have been read back from storage. */
+  hydrated: boolean;
+  /** The last scan result, handed to the Success screen to celebrate. Not persisted. */
+  lastResult: ScanResult | null;
   setSession: (token: string, zooSlug: string) => void;
-  setLastResult: (result: unknown | null) => void;
+  clearSession: () => void;
+  setLastResult: (result: ScanResult | null) => void;
+  setHydrated: () => void;
 };
 
 export const useStore = create<State>()(
@@ -19,13 +25,17 @@ export const useStore = create<State>()(
     (set) => ({
       guestToken: null,
       zooSlug: null,
+      hydrated: false,
       lastResult: null,
       setSession: (guestToken, zooSlug) => set({ guestToken, zooSlug }),
+      clearSession: () => set({ guestToken: null, zooSlug: null, lastResult: null }),
       setLastResult: (lastResult) => set({ lastResult }),
+      setHydrated: () => set({ hydrated: true }),
     }),
     {
       name: "zooquest",
-      partialize: (s) => ({ guestToken: s.guestToken, zooSlug: s.zooSlug }), // lastResult is per-visit
+      partialize: (s) => ({ guestToken: s.guestToken, zooSlug: s.zooSlug }),
+      onRehydrateStorage: () => (state) => state?.setHydrated(),
     },
   ),
 );

@@ -1,10 +1,7 @@
-import { Placeholder } from "@/components/Placeholder";
+import { MarkerLanding } from "./MarkerLanding";
 
-export default async function Page({ params }: { params: Promise<Record<string, string>> }) {
-  const p = await params;
-  return (
-    <Placeholder eyebrow="Quest marker" title="Scanning…" milestone="M2 (scan loop)">
-      <pre className="rounded-card bg-canopy p-4 text-xs text-sand-dim">{JSON.stringify(p, null, 2)}</pre>
-    </Placeholder>
-  );
+/** The QR entry point. Everything interesting happens client-side once storage is readable. */
+export default async function Page({ params }: { params: Promise<{ code: string }> }) {
+  const { code } = await params;
+  return <MarkerLanding code={code.toUpperCase()} />;
 }
