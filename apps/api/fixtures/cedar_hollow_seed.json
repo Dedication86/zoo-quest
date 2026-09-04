@@ -8,6 +8,7 @@
       "timezone": "America/Chicago",
       "primary_color": "#2F6B4F",
       "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z",
       "settings": {
         "discovery_xp": 100,
         "quest_complete_xp": 500,
@@ -440,7 +441,8 @@
       "exhibit": 1,
       "animal": null,
       "label": "Base Camp welcome sign",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -452,7 +454,8 @@
       "exhibit": 2,
       "animal": 1,
       "label": "Giraffe viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -464,7 +467,8 @@
       "exhibit": 2,
       "animal": 2,
       "label": "African Elephant viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -476,7 +480,8 @@
       "exhibit": 2,
       "animal": 3,
       "label": "Plains Zebra viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -488,7 +493,8 @@
       "exhibit": 2,
       "animal": 4,
       "label": "African Lion viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -500,7 +506,8 @@
       "exhibit": 3,
       "animal": 5,
       "label": "Squirrel Monkey viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -512,7 +519,8 @@
       "exhibit": 3,
       "animal": 6,
       "label": "Scarlet Macaw viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -524,7 +532,8 @@
       "exhibit": 3,
       "animal": 7,
       "label": "Two-toed Sloth viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -536,7 +545,8 @@
       "exhibit": 4,
       "animal": 8,
       "label": "Burmese Python viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -548,7 +558,8 @@
       "exhibit": 4,
       "animal": 9,
       "label": "Galápagos Tortoise viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -560,7 +571,8 @@
       "exhibit": 5,
       "animal": 10,
       "label": "Red Wolf viewing rail",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-09-01T00:00:00Z"
     }
   },
   {
@@ -773,7 +785,7 @@
       "difficulty": "easy",
       "xp_reward": 50,
       "prompt": "I weigh more than a car. I have huge ears. I use my nose like a hand. Who am I?",
-      "hint": null,
+      "hint": "",
       "animal": 2,
       "exhibit": null,
       "accept_markers": [],
@@ -801,7 +813,7 @@
       "difficulty": "medium",
       "xp_reward": 100,
       "prompt": "My tongue is purple and longer than a ruler. I have a very long neck but the same number of neck bones as you. Who am I?",
-      "hint": null,
+      "hint": "",
       "animal": 1,
       "exhibit": null,
       "accept_markers": [],
@@ -829,7 +841,7 @@
       "difficulty": "hard",
       "xp_reward": 250,
       "prompt": "I have no legs but I can climb trees. I can go months without eating. I sense heat with my lips. Who am I?",
-      "hint": null,
+      "hint": "",
       "animal": 8,
       "exhibit": null,
       "accept_markers": [],
@@ -857,7 +869,7 @@
       "difficulty": "easy",
       "xp_reward": 50,
       "prompt": "Stand at the giraffe rail and watch for 30 seconds. What are they doing?",
-      "hint": null,
+      "hint": "",
       "animal": 1,
       "exhibit": 2,
       "accept_markers": [],
@@ -887,7 +899,7 @@
       "difficulty": "easy",
       "xp_reward": 50,
       "prompt": "Watch the squirrel monkeys for 30 seconds. How many can you count?",
-      "hint": null,
+      "hint": "",
       "animal": 5,
       "exhibit": 3,
       "accept_markers": [],
@@ -916,7 +928,7 @@
       "difficulty": "medium",
       "xp_reward": 100,
       "prompt": "Find the sloth and watch it for 30 seconds. Did it move?",
-      "hint": null,
+      "hint": "",
       "animal": 7,
       "exhibit": 3,
       "accept_markers": [],
@@ -945,7 +957,7 @@
       "difficulty": "easy",
       "xp_reward": 50,
       "prompt": "Take a photo of any animal eating. Show your team, then tap Done.",
-      "hint": null,
+      "hint": "",
       "animal": null,
       "exhibit": null,
       "accept_markers": [],
@@ -967,7 +979,7 @@
       "difficulty": "easy",
       "xp_reward": 50,
       "prompt": "Take a team photo in front of the Base Camp sign to start your adventure.",
-      "hint": null,
+      "hint": "",
       "animal": null,
       "exhibit": 1,
       "accept_markers": [],
@@ -989,7 +1001,7 @@
       "difficulty": "medium",
       "xp_reward": 100,
       "prompt": "Why are elephants so important to the animals around them?",
-      "hint": null,
+      "hint": "",
       "animal": 2,
       "exhibit": null,
       "accept_markers": [],
@@ -1017,7 +1029,7 @@
       "difficulty": "hard",
       "xp_reward": 250,
       "prompt": "About how many red wolves are left in the wild?",
-      "hint": null,
+      "hint": "",
       "animal": 10,
       "exhibit": null,
       "accept_markers": [],
@@ -1045,7 +1057,7 @@
       "difficulty": "medium",
       "xp_reward": 100,
       "prompt": "What is one of the biggest threats to wild scarlet macaws?",
-      "hint": null,
+      "hint": "",
       "animal": 6,
       "exhibit": null,
       "accept_markers": [],

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Zoo Quest QR markers · {{ zoo.name }}</title>
+<style>
+  @page { size: letter; margin: 0.5in; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; margin: 0; color: #0b1a14; background: #fff; }
+  .toolbar { padding: 12px 16px; background: #0b1a14; color: #f2ede2; display: flex; gap: 16px; align-items: center; }
+  .toolbar button { font: inherit; padding: 8px 16px; border-radius: 8px; border: 0; background: #f0963a; color: #0b1a14; font-weight: 700; cursor: pointer; }
+  .sheet { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35in; padding: 0.35in; }
+  .card { border: 3px solid #0b1a14; border-radius: 18px; padding: 0.3in; text-align: center; page-break-inside: avoid; break-inside: avoid; height: 4.6in; display: flex; flex-direction: column; justify-content: space-between; }
+  .kicker { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #c96f16; font-weight: 700; }
+  .title { font-size: 26px; font-weight: 800; margin: 4px 0 0; line-height: 1.1; }
+  .emoji { font-size: 34px; line-height: 1; }
+  .qr img { width: 2.3in; height: 2.3in; }
+  .cta { font-size: 15px; font-weight: 700; }
+  .code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: #66756b; }
+  .label { font-size: 11px; color: #66756b; }
+  @media print { .toolbar { display: none; } .sheet { padding: 0; } }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <strong>{{ cards|length }} marker{{ cards|length|pluralize }} · {{ zoo.name }}</strong>
+  <span>Two per page. Print at 100%, no scaling.</span>
+  <button onclick="window.print()">Print</button>
+</div>
+<div class="sheet">
+{% for c in cards %}
+  <div class="card">
+    <div>
+      <div class="kicker">Zoo Quest marker</div>
+      <div class="emoji">{{ c.emoji }}</div>
+      <div class="title">{{ c.title }}</div>
+    </div>
+    <div class="qr"><img src="{{ c.qr }}" alt="QR code for {{ c.marker.code }}"></div>
+    <div>
+      <div class="cta">Scan me with your camera to start the quest</div>
+      <div class="code">{{ c.marker.code }}</div>
+      <div class="label">{{ c.marker.exhibit.name }} · {{ c.marker.label }}</div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+</body>
+</html>
