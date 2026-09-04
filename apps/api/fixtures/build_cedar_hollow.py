@@ -26,6 +26,7 @@ ZOO = add(
     timezone="America/Chicago",
     primary_color="#2F6B4F",
     is_active=True,
+    created_at="2026-09-01T00:00:00Z",
     settings={
         "discovery_xp": 100,
         "quest_complete_xp": 500,
@@ -291,6 +292,7 @@ for i, (code, ex, an, label) in enumerate(markers, start=1):
         animal=ids[("animal", an)] if an else None,
         label=label,
         is_active=True,
+        created_at="2026-09-01T00:00:00Z",
     )
 
 # ---------- Challenges ----------
@@ -585,7 +587,7 @@ for i, c in enumerate(challenges, start=1):
         difficulty=c["difficulty"],
         xp_reward=c["xp"],
         prompt=c["prompt"],
-        hint=c["hint"],
+        hint=c["hint"] or "",
         animal=ids[("animal", c["animal"])] if c["animal"] else None,
         exhibit=ids[("exhibit", c["exhibit"])] if c["exhibit"] else None,
         accept_markers=[ids[("marker", m)] for m in c["accept_markers"]],

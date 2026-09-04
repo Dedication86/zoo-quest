@@ -36,6 +36,7 @@ pip install -r requirements.txt
 cp .env.example .env
 python manage.py migrate
 python manage.py createsuperuser                         # for /admin/
+python manage.py loaddata fixtures/cedar_hollow_seed.json   # the fictional test zoo
 cd ../..
 
 # Web
@@ -58,13 +59,13 @@ Tests and lint: `make test`, `make lint`. CI runs the same on every push.
 
 | Piece | Where | How |
 |---|---|---|
-| API + Postgres | [Railway](https://railway.app) | New project → Deploy from GitHub → root directory `apps/api`. Add a Postgres plugin; Railway injects `DATABASE_URL`. Set `DJANGO_SETTINGS_MODULE=config.settings.production`, `SECRET_KEY` (50+ random chars), `ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS` and `CSRF_TRUSTED_ORIGINS` (your Vercel URL). `railway.json` handles build, migrate and health check. |
+| API + Postgres | [Railway](https://railway.app) | New project → Deploy from GitHub → root directory `apps/api`. Add a Postgres plugin; Railway injects `DATABASE_URL`. Set `DJANGO_SETTINGS_MODULE=config.settings.production`, `SECRET_KEY` (50+ random chars), `ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS` and `CSRF_TRUSTED_ORIGINS` (your Vercel URL), and `PLAY_BASE_URL` (the Vercel URL; printed QR codes point here). Generate a domain with target port **8080** (Railway's `$PORT`). `railway.json` handles build, migrate and health check. |
 | Web | [Vercel](https://vercel.com) | Import the repo → root directory `apps/web`. Set `NEXT_PUBLIC_API_URL=https://<railway-domain>/api/v1`. |
 
 ## Milestones
 
 - [x] **M0 Foundation** — this. Repo, settings split, four apps, health endpoint, route skeleton, CI, deploy configs.
-- [ ] **M1 Content backbone** — models, Django Admin, Cedar Hollow fixture, read-only endpoints, QR sheet.
+- [x] **M1 Content backbone** — models, Django Admin (Unfold), Cedar Hollow fixture, read-only endpoints, printable QR sheet.
 - [ ] **M2 Scan loop** — guest sessions, `POST /scan`, discovery XP, marker landing, Success, Profile.
 - [ ] **M3 Quests and challenges** — six verifiers, submit/hint, quest screens.
 - [ ] **M4 Progression** — levels, badge rule engine, full Success sequence, Map.

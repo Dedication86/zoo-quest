@@ -15,7 +15,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 api_v1 = [
     path("", include("apps.core.urls")),
-    # M1: path("", include("apps.content.urls")),
+    path("", include("apps.content.urls")),
     # M2: path("", include("apps.play.urls")),
     # M5: path("", include("apps.analytics.urls")),
 ]

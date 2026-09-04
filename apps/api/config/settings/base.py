@@ -25,6 +25,8 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 
 # ---------------------------------------------------------------- apps
 DJANGO_APPS = [
+    "unfold",  # admin theme; must precede django.contrib.admin
+    "unfold.contrib.forms",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -141,6 +143,10 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
+# ---------------------------------------------------------------- Zoo Quest
+# Public URL of the explorer app. Printed QR codes encode PLAY_BASE_URL + /s/<code>.
+PLAY_BASE_URL = env("PLAY_BASE_URL", default="http://localhost:3000").rstrip("/")
+
 # ---------------------------------------------------------------- Zoo Quest game defaults
 # Per-zoo overrides live in Zoo.settings (JSON). These are only the fallbacks
 # used when a zoo has not configured a value. Nothing in game code should
@@ -150,4 +156,52 @@ ZOOQUEST_DEFAULTS = {
     "quest_complete_xp": 500,
     "xp_by_difficulty": {"easy": 50, "medium": 100, "hard": 250},
     "repeat_scan_cooldown_minutes": 1440,
+}
+
+# ---------------------------------------------------------------- admin (Unfold)
+UNFOLD = {
+    "SITE_TITLE": "Zoo Quest",
+    "SITE_HEADER": "Zoo Quest",
+    "SITE_SUBHEADER": "Manage your zoo",
+    "SITE_SYMBOL": "pets",
+    "SHOW_HISTORY": True,
+    "COLORS": {
+        "primary": {
+            "50": "236 245 239",
+            "100": "215 235 222",
+            "200": "176 214 191",
+            "300": "133 190 155",
+            "400": "95 163 122",
+            "500": "63 138 99",
+            "600": "47 107 79",
+            "700": "38 86 64",
+            "800": "30 68 51",
+            "900": "22 50 38",
+            "950": "11 26 20",
+        },
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "navigation": [
+            {
+                "title": "Zoo",
+                "items": [
+                    {"title": "Zoos", "icon": "park", "link": "/admin/tenants/zoo/"},
+                    {"title": "Staff", "icon": "badge", "link": "/admin/tenants/staffmembership/"},
+                    {"title": "Levels", "icon": "trending_up", "link": "/admin/content/level/"},
+                ],
+            },
+            {
+                "title": "Content",
+                "items": [
+                    {"title": "Exhibits", "icon": "map", "link": "/admin/content/exhibit/"},
+                    {"title": "Animals", "icon": "pets", "link": "/admin/content/animal/"},
+                    {"title": "QR Markers", "icon": "qr_code_2", "link": "/admin/content/marker/"},
+                    {"title": "Challenges", "icon": "flag", "link": "/admin/content/challenge/"},
+                    {"title": "Quests", "icon": "explore", "link": "/admin/content/quest/"},
+                    {"title": "Badges", "icon": "military_tech", "link": "/admin/content/badge/"},
+                ],
+            },
+        ],
+    },
 }
